@@ -1,0 +1,17 @@
+Package: tenpuzzle
+Type: Package
+Title: Ten Puzzle Solver
+Version: 0.1.0
+Authors@R: c(
+    person("Kota", "Mori", email = "kmori05@gmail.com", role = c("aut", "cre"))
+    )
+Description: Solves ten puzzle quiz, 
+    possibly with arbitrary number of inputs and target number.
+License: MIT + file LICENSE
+Imports:
+    combinat,
+    dplyr,
+    magrittr
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
