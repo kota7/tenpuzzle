@@ -42,34 +42,53 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
   paren <- lapply(pos, function(p) c(TRUE, FALSE))
   names(paren) <- pos
   paren_dat <- do.call('expand.grid', paren)
+  # then, compute the number of parentheses by positions
+  for (i in 0:n) {
+    open_ct <- {
+      cols <- grep(sprintf('paren%d,', i), names(paren_dat))
+      rowSums(paren_dat[, cols, drop=FALSE])
+    }
+    close_ct <- {
+      cols <- grep(sprintf('paren[0-9]+,%d', i), names(paren_dat))
+      rowSums(paren_dat[, cols, drop=FALSE])
+    }
+
+    paren_dat[[paste0('open', i)]]  <- open_ct
+    paren_dat[[paste0('close', i)]] <- close_ct
+  }
+  # now we only need open/close counts, and remove duplicates
+  paren_dat <- dplyr::select(paren_dat,
+                             dplyr::starts_with('open'),
+                             dplyr::starts_with('close'))
+  # remove redundant parentheses
+  # having both open_i and close_{i+1} are redundant
+  for (i in 1:n) {
+    r <- pmin(paren_dat[[paste0('open', i-1)]],
+              paren_dat[[paste0('close', i)]])
+    paren_dat[[paste0('open', i-1)]] <- paren_dat[[paste0('open', i-1)]] - r
+    paren_dat[[paste0('close', i)]] <- paren_dat[[paste0('close', i)]] - r
+  }
+  # can be more parentheses removal
+  # remove duplicates
+  paren_dat <- dplyr::distinct(paren_dat)
+
 
   # possible permutations
   perms <- unique(combinat::permn(x))
   perms_dat <- as.data.frame(matrix(unlist(perms), ncol=4, byrow=TRUE))
   names(perms_dat) <- paste0('num', 1:n)
 
-  # combine them all
+
+
+  # combine them all and make sure all rows are distinct
   perms_dat$tmp <- 1
   ops_dat$tmp   <- 1
   paren_dat$tmp <- 1
   dat <- dplyr::inner_join(perms_dat, ops_dat, by='tmp') %>%
     dplyr::inner_join(paren_dat, by='tmp') %>%
-    dplyr::select_(~ -tmp)
+    dplyr::select_(~ -tmp) %>%
+    dplyr::distinct()
 
-  # compute the number of parentheses
-  for (i in 0:n) {
-    open_ct <- {
-      cols <- grep(sprintf('paren%d,', i), names(dat))
-      rowSums(dat[, cols, drop=FALSE])
-    }
-    close_ct <- {
-      cols <- grep(sprintf('paren[0-9]+,%d', i), names(dat))
-      rowSums(dat[, cols, drop=FALSE])
-    }
-
-    dat[[paste0('open', i)]]  <- open_ct
-    dat[[paste0('close', i)]] <- close_ct
-  }
 
   # make expression
   makeParen <- function(char, counts) {
@@ -92,7 +111,15 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
     )
   }
 
-  # compute
+  # remove redundant spaces,
+  # and remove duplicates
+  expr <- sub('^ +', '', expr)
+  expr <- sub(' +$', '', expr)
+  expr <- gsub(' {2,}', ' ', expr)
+  expr <- unique(expr)
+
+  # compute value, and
+  # return the expressions sufficiently close to the target
   res <- lapply(expr, function(txt) eval(parse(text=txt))) %>% unlist()
   flg <- abs(res-tgt)/abs(tgt + 1e-6) < 1e-6
   expr[which(flg)]
