@@ -76,9 +76,11 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
     lapply(counts, function(m) paste0(rep(char, m), collapse='')) %>%
       unlist()
   }
-  expr <- makeParen('(', dat$open0)
-  expr <- paste0(expr, dat$num1)
-  expr <- paste0(expr, makeParen(')', dat$close1))
+  expr <- paste(
+    makeParen('(', dat$open0),
+    dat$num1,
+    makeParen(')', dat$close1)
+  )
 
   for (i in 2:n) {
     expr <- paste(
