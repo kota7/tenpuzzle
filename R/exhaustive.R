@@ -1,7 +1,7 @@
 #' Solve Ten Puzzle by Brute Force
 #'
 #' @param x   an integer vector
-#' @param tgt an integer to target
+#' @param tgt an integer of target
 #'
 #' @return a character vector of all possible answers
 #'
@@ -19,7 +19,7 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
   if (n < 1) stop('no input')
   if (n == 1) {
     if (x == tgt) return(as.character(tgt))
-    else return(list())
+    else return(character(0))
   }
 
 
