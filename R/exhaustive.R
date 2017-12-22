@@ -56,7 +56,7 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
     paren_dat[[paste0('open', i)]]  <- open_ct
     paren_dat[[paste0('close', i)]] <- close_ct
   }
-  # now we only need open/close counts, and remove duplicates
+  # now we only need open/close counts
   paren_dat <- dplyr::select(paren_dat,
                              dplyr::starts_with('open'),
                              dplyr::starts_with('close'))
@@ -111,14 +111,12 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
     )
   }
 
-  # remove redundant spaces,
+  # remove redundant parentheses and spaces
   # and remove duplicates
-  expr <- sub('^ +', '', expr)
-  expr <- sub(' +$', '', expr)
-  expr <- gsub(' {2,}', ' ', expr)
+  expr <- clean_expr(expr)
   expr <- unique(expr)
 
-  # compute value, and
+  # compute value of expression, then
   # return the expressions sufficiently close to the target
   res <- lapply(expr, function(txt) eval(parse(text=txt))) %>% unlist()
   flg <- abs(res-tgt)/abs(tgt + 1e-6) < 1e-6

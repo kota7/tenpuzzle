@@ -9,7 +9,7 @@ tenpuzzle_exhaustive(x, tgt = 10)
 \arguments{
 \item{x}{an integer vector}
 
-\item{tgt}{an integer to target}
+\item{tgt}{an integer of target}
 }
 \value{
 a character vector of all possible answers
