@@ -22,16 +22,18 @@ struct Rational
   void simplify();  // simplify the denominator and numerator as possible
 
   // four basic math operations
-  Rational operator +(const Rational &r);
-  Rational operator -(const Rational &r);
-  Rational operator *(const Rational &r);
-  Rational operator /(const Rational &r);
+  Rational operator +(const Rational &r) const;
+  Rational operator -(const Rational &r) const;
+  Rational operator *(const Rational &r) const;
+  Rational operator /(const Rational &r) const;
 
-  // less-than and equal-to operation
-  bool operator <(const Rational &r);
-  bool operator ==(const Rational &r);
+  // equality and inequality operation
+  bool operator <(const Rational &r) const;
+  bool operator ==(const Rational &r) const;
+  bool operator >(const Rational &r) const  { return (r < *this); }
+  bool operator !=(const Rational &r) const { return !(*this == r); }
 
-  void print();
+  void print() const;
 
 };
 

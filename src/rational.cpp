@@ -65,7 +65,7 @@ void Rational::simplify() {
   }
 }
 
-Rational Rational::operator +(const Rational &r) {
+Rational Rational::operator +(const Rational &r) const {
   unsigned int n = num * r.num;
   int s1;
   int s2;
@@ -80,7 +80,7 @@ Rational Rational::operator +(const Rational &r) {
   return ret;
 }
 
-Rational Rational::operator *(const Rational &r) {
+Rational Rational::operator *(const Rational &r) const {
   bool ne = (neg && !r.neg) || (!neg && r.neg);
   unsigned int d = den * r.den;
   unsigned int n = num * r.num;
@@ -90,13 +90,13 @@ Rational Rational::operator *(const Rational &r) {
   return ret;
 }
 
-Rational Rational::operator -(const Rational &r) {
+Rational Rational::operator -(const Rational &r) const {
   Rational ret = *this + (Rational(-1) * r);
   ret.expr = '(' + this->expr + ") - (" + r.expr + ')';
   return ret;
 }
 
-Rational Rational::operator /(const Rational &r) {
+Rational Rational::operator /(const Rational &r) const {
   bool ne = (neg && !r.neg) || (!neg && r.neg);
   unsigned int d = den * r.num;
   unsigned int n = num * r.den;
@@ -106,19 +106,20 @@ Rational Rational::operator /(const Rational &r) {
   return ret;
 }
 
-bool Rational::operator <(const Rational &r) {
+bool Rational::operator <(const Rational &r) const {
   if (neg && !r.neg) return true;
   if (!neg && r.neg) return false;
 
   return (den*r.num < r.den*num);
 }
 
-bool Rational::operator ==(const Rational &r) {
+
+bool Rational::operator ==(const Rational &r) const {
   if (neg != r.neg) return false;
   return (den*r.num == r.den*num);
 }
 
-void Rational::print() {
+void Rational::print() const {
   string ret = intToStr(den);
   if (num != 1) ret += " / " + intToStr(num);
   if (neg) ret = "- (" + ret + ')';
@@ -200,6 +201,22 @@ void test_rational() {
   Rcout << (y == y) << "\n";
   Rcout << (z == z) << "\n";
   Rcout << (w == w) << "\n";
+
+  Rcout << (x != x) << "\n";
+  Rcout << (y != y) << "\n";
+  Rcout << (z != z) << "\n";
+  Rcout << (w != w) << "\n";
+
+  Rcout << (x == y) << "\n";
+  Rcout << (y == z) << "\n";
+  Rcout << (z == w) << "\n";
+  Rcout << (w == v) << "\n";
+
+
+  Rcout << (x > w) << "\n";
+  Rcout << (w > x) << "\n";
+  Rcout << (z > w) << "\n";
+  Rcout << (w > z) << "\n";
 
 }
 
