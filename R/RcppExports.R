@@ -5,3 +5,15 @@ CleanParen <- function(expr) {
     .Call('_tenpuzzle_CleanParen', PACKAGE = 'tenpuzzle', expr)
 }
 
+test_rational <- function() {
+    invisible(.Call('_tenpuzzle_test_rational', PACKAGE = 'tenpuzzle'))
+}
+
+SolveTenPuzzle <- function(x, tgt) {
+    .Call('_tenpuzzle_SolveTenPuzzle', PACKAGE = 'tenpuzzle', x, tgt)
+}
+
+test_utils <- function() {
+    invisible(.Call('_tenpuzzle_test_utils', PACKAGE = 'tenpuzzle'))
+}
+
