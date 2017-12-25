@@ -36,7 +36,7 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
   #   the difference is larger than one and less than n
   pos <- combinat::combn(n+1, 2)-1
   dif <- pos[2,] - pos[1,]
-  pos <- pos[, (dif > 1) & (dif < 4)]
+  pos <- pos[, (dif > 1) & (dif < n)]
   pos <- apply(pos, 2, paste0, collapse=',')
   pos <- paste0('paren', pos)
   paren <- lapply(pos, function(p) c(TRUE, FALSE))
@@ -75,7 +75,7 @@ tenpuzzle_exhaustive <- function(x, tgt=10) {
 
   # possible permutations
   perms <- unique(combinat::permn(x))
-  perms_dat <- as.data.frame(matrix(unlist(perms), ncol=4, byrow=TRUE))
+  perms_dat <- as.data.frame(matrix(unlist(perms), ncol=n, byrow=TRUE))
   names(perms_dat) <- paste0('num', 1:n)
 
 
