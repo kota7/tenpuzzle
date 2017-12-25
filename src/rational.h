@@ -1,3 +1,7 @@
+#ifndef RATIONALHEADERDEF
+#define RATIONALHEADERDEF
+
+
 #include <string>
 #include <Rcpp.h>
 #include "utils.h"
@@ -38,3 +42,4 @@ struct Rational
 };
 
 
+#endif

@@ -16,15 +16,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// test_rational
-void test_rational();
-RcppExport SEXP _tenpuzzle_test_rational() {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    test_rational();
-    return R_NilValue;
-END_RCPP
-}
 // SolveTenPuzzle
 CharacterVector SolveTenPuzzle(IntegerVector x, int tgt);
 RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP) {
@@ -46,12 +37,21 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test_rational
+void test_rational();
+RcppExport SEXP _tenpuzzle_test_rational() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test_rational();
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tenpuzzle_CleanParen", (DL_FUNC) &_tenpuzzle_CleanParen, 1},
-    {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},
     {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 2},
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
+    {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},
     {NULL, NULL, 0}
 };
 

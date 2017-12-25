@@ -1,3 +1,7 @@
+#ifndef UTILSHEADERDEF
+#define UTILSHEADERDEF
+
+
 #include <string>
 #include <Rcpp.h>
 using namespace std;
@@ -8,3 +12,4 @@ int gcd(int a, int b);
 string intToStr(int x);
 
 
+#endif

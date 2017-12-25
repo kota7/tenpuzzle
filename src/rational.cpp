@@ -109,7 +109,7 @@ Rational Rational::operator /(const Rational &r) const {
 bool Rational::operator <(const Rational &r) const {
   if (neg && !r.neg) return true;
   if (!neg && r.neg) return false;
-
+  if (neg) return (den*r.num > r.den*num);
   return (den*r.num < r.den*num);
 }
 
@@ -122,104 +122,9 @@ bool Rational::operator ==(const Rational &r) const {
 void Rational::print() const {
   string ret = intToStr(den);
   if (num != 1) ret += " / " + intToStr(num);
-  if (neg) ret = "- (" + ret + ')';
+  if (neg) {
+    if (num == 1) ret = "-" + ret; else ret = "- (" + ret + ')';
+  }
   Rcout << ret << "\n";
 }
 
-
-// [[Rcpp::export]]
-void test_rational() {
-  Rational x(3);
-  Rcout << x.expr << "\n";
-  x.print();
-
-  Rational y(3, 5);
-  Rcout << y.expr << "\n";
-  y.print();
-
-  Rational z(2, 4, true);
-  Rcout << z.expr << "\n";
-  z.print();
-
-  z.simplify();
-  Rcout << z.expr << "\n";
-  z.print();
-
-  Rational w(0);
-  Rcout << w.expr << "\n";
-  w.print();
-
-  Rational v(-15);
-  Rcout << v.expr << "\n";
-  v.print();
-
-  Rcout << (x + y).expr << '\n';
-  (x + y).print();
-  Rcout << (x - y).expr << "\n";
-  (x - y).print();
-  Rcout << (x * y).expr << "\n";
-  (x * y).print();
-  Rcout << (x / y).expr << "\n";
-  (x / y).print();
-
-  Rcout << (z + y).expr << "\n";
-  (z + y).print();
-  Rcout << (z - y).expr << "\n";
-  (z - y).print();
-  Rcout << (z * y).expr << "\n";
-  (z * y).print();
-  Rcout << (z / y).expr << "\n";
-  (z / y).print();
-
-  Rcout << (x < y) << "\n";
-  Rcout << (z < y) << "\n";
-
-  Rcout << (y + w).expr << '\n';
-  (y + w).print();
-  Rcout << (y - w).expr << "\n";
-  (y - w).print();
-  Rcout << (y * w).expr << "\n";
-  (y * w).print();
-  //Rcout << (y / w).expr << "\n";
-  //(y / w).print();
-
-  Rcout << (w + y).expr << "\n";
-  (w + y).print();
-  Rcout << (w - y).expr << "\n";
-  (w - y).print();
-  Rcout << (w * y).expr << "\n";
-  (w * y).print();
-  Rcout << (w / y).expr << "\n";
-  (w / y).print();
-
-  Rcout << (x < w) << "\n";
-  Rcout << (w < x) << "\n";
-  Rcout << (z < w) << "\n";
-  Rcout << (w < z) << "\n";
-
-  Rcout << (x == x) << "\n";
-  Rcout << (y == y) << "\n";
-  Rcout << (z == z) << "\n";
-  Rcout << (w == w) << "\n";
-
-  Rcout << (x != x) << "\n";
-  Rcout << (y != y) << "\n";
-  Rcout << (z != z) << "\n";
-  Rcout << (w != w) << "\n";
-
-  Rcout << (x == y) << "\n";
-  Rcout << (y == z) << "\n";
-  Rcout << (z == w) << "\n";
-  Rcout << (w == v) << "\n";
-
-
-  Rcout << (x > w) << "\n";
-  Rcout << (w > x) << "\n";
-  Rcout << (z > w) << "\n";
-  Rcout << (w > z) << "\n";
-
-}
-
-/* R
-tenpuzzle:::test_rational()
-*/
