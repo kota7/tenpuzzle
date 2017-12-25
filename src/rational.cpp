@@ -7,7 +7,6 @@ using namespace Rcpp;
 
 
 Rational::Rational(const int &i) {
-
   neg = (i < 0);
   if (neg) den = -i; else den = i;
   num = 1;
