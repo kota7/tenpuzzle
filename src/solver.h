@@ -21,18 +21,4 @@ struct TenSolver {
 };
 
 
-struct ReductionIterator {
-  // iterator for possible reduction for a sequence of rational numbers
-  nums origin;
-  size_t i;  // current index for next 1st number
-  size_t j;  // current index for next 2nd number
-  ReductionIterator(const nums x) {
-    origin = x;
-    i = 0;
-    j = 1;
-  }
-
-  nums nextChild();
-  bool hasNext();
-};
 
