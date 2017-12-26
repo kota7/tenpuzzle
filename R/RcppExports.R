@@ -17,3 +17,7 @@ test_rational <- function() {
     invisible(.Call('_tenpuzzle_test_rational', PACKAGE = 'tenpuzzle'))
 }
 
+test_reduction <- function() {
+    invisible(.Call('_tenpuzzle_test_reduction', PACKAGE = 'tenpuzzle'))
+}
+

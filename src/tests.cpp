@@ -3,6 +3,7 @@
 #include <Rcpp.h>
 #include "utils.h"
 #include "rational.h"
+#include "reduction.h"
 using namespace std;
 using namespace Rcpp;
 
@@ -138,9 +139,49 @@ void test_rational() {
 
 
 
+// [[Rcpp::export]]
+void test_reduction() {
+  multiset<int> x;
+  x.insert(3);
+  x.insert(5);
+  x.insert(3);
+  x.insert(4);
+  ReductionIterator<int> r(x);
+  int ct = 0;
+  while (r.hasNext()) {
+    ct++;
+    Rcout << ct << "\tnext is " << *r.i << ' ' << *r.op << ' ' << *r.j << ": ";
+    multiset<int> y = r.next();
+    for (multiset<int>::iterator i=y.begin(); i != y.end(); ++i) {
+      Rcout << *i << ' ';
+    }
+    Rcout << '\n';
+  }
+
+  Rcout << "*********************\n";
+
+  multiset<Rational> z;
+  z.insert(Rational(4));
+  z.insert(Rational(10, 15));
+  z.insert(Rational(10, 15, false));
+  z.insert(Rational(3, 2, true));
+  ReductionIterator<Rational> s(z);
+  ct = 0;
+  while (s.hasNext()) {
+    ct++;
+    Rcout << ct << "\tnext is " << s.i->str() << ' ' <<
+      *s.op << ' ' << s.j->str() << ": ";
+    multiset<Rational> w = s.next();
+    for (multiset<Rational>::iterator i=w.begin(); i != w.end(); ++i) {
+      Rcout << i->str() << ' ';
+    }
+    Rcout << '\n';
+  }
+}
 
 
 /* R
  tenpuzzle:::test_utils()
  tenpuzzle:::test_rational()
+ tenpuzzle:::test_reduction()
 */

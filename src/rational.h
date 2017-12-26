@@ -19,6 +19,7 @@ struct Rational
   string expr;
 
   // constractors
+  Rational();
   Rational(const int &i);
   Rational(const int &d, const int &n);
   Rational(const unsigned int &d, const unsigned int &n, const bool &ne);
@@ -38,6 +39,7 @@ struct Rational
   bool operator !=(const Rational &r) const { return !(*this == r); }
 
   void print() const;
+  string str() const;
 
 };
 

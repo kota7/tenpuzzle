@@ -6,6 +6,13 @@ using namespace std;
 using namespace Rcpp;
 
 
+Rational::Rational() {
+  neg = false;
+  den = 0;
+  num = 1;
+  expr = "0";
+}
+
 Rational::Rational(const int &i) {
   neg = (i < 0);
   if (neg) den = -i; else den = i;
@@ -118,12 +125,17 @@ bool Rational::operator ==(const Rational &r) const {
   return (den*r.num == r.den*num);
 }
 
-void Rational::print() const {
+
+string Rational::str() const {
   string ret = intToStr(den);
-  if (num != 1) ret += " / " + intToStr(num);
+  if (num != 1) ret += "/" + intToStr(num);
   if (neg) {
-    if (num == 1) ret = "-" + ret; else ret = "- (" + ret + ')';
+    if (num == 1) ret = "-" + ret; else ret = "-(" + ret + ')';
   }
-  Rcout << ret << "\n";
+  return ret;
+}
+
+void Rational::print() const {
+  Rcout << str() << "\n";
 }
 

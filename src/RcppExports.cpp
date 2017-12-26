@@ -46,12 +46,22 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test_reduction
+void test_reduction();
+RcppExport SEXP _tenpuzzle_test_reduction() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test_reduction();
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tenpuzzle_CleanParen", (DL_FUNC) &_tenpuzzle_CleanParen, 1},
     {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 2},
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
     {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},
+    {"_tenpuzzle_test_reduction", (DL_FUNC) &_tenpuzzle_test_reduction, 0},
     {NULL, NULL, 0}
 };
 
