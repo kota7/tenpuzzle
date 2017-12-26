@@ -7,10 +7,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' tenpuzzle_exhaustive(c(1, 1, 9, 9), 10)
+#' tensolve_bf(c(1, 1, 9, 9), 10)
 #' }
 #' @export
-tenpuzzle_exhaustive <- function(x, tgt=10) {
+tensolve_bf <- function(x, tgt=10) {
 
   # number of input integers
   n <- length(x)

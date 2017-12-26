@@ -23,6 +23,7 @@ struct ReductionIterator {
   string::const_iterator op;
 
   ReductionIterator(const multiset<T> x);
+
   multiset<T> next();
   bool hasNext();
   void increment();

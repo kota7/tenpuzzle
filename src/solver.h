@@ -1,24 +1,28 @@
-#include <vector>
+#ifndef SOLVERHEADERDEF
+#define SOLVERHEADERDEF
+
+#include <string>
+#include <set>
 #include <Rcpp.h>
 #include "rational.h"
+#include "reduction.h"
 using namespace std;
 using namespace Rcpp;
-
-// define alias for a sequence of rational numbers
-typedef vector<Rational> nums;
 
 
 // [[Rcpp::export]]
 CharacterVector SolveTenPuzzle(IntegerVector x, int tgt);
 
 
+template <class T>
 struct TenSolver {
-  int tgt;
-  TenSolver(int t) { tgt = t; }
+  T tgt;
+  set<string> answers;
 
-  CharacterVector solve(const nums &x);
-  void solve_rec(nums &x, vector<string> &ans);
+  TenSolver(T t) { tgt = t; }
+
+  void solve(const multiset<T> &x);
 };
 
 
-
+#endif

@@ -79,8 +79,12 @@ bool ReductionIterator<int>::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
-  // if op is division, then x[i] mod x[j] must equal zero
-  if ((*op == '/') && (*i % *j != 0)) return false;
+  // if op is division, then
+  //   j must not be zero and
+  //   i mof j must equal zero
+  if (*op == '/') {
+    if ((*j == 0) || (*i % *j != 0)) return false;
+  }
 
   return true;
 }
@@ -89,6 +93,10 @@ template <>
 bool ReductionIterator<Rational>::isValid() {
   // i must not be equal to j
   if (i == j) return false;
+
+  // if op is division, j must not be zero
+  if ((*op == '/') && (j->den == 0)) return false;
+
 
   return true;
 }
