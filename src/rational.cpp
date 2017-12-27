@@ -10,15 +10,12 @@ Rational::Rational() {
   neg = false;
   den = 0;
   num = 1;
-  expr = "0";
 }
 
 Rational::Rational(const int &i) {
   neg = (i < 0);
   if (neg) den = -i; else den = i;
   num = 1;
-  if (neg) expr = "-"; else expr = "";
-  expr += intToStr(den);
 }
 
 Rational::Rational(const int &d, const int &n) {
@@ -33,9 +30,6 @@ Rational::Rational(const int &d, const int &n) {
   neg = (d < 0 && n > 0) || (d > 0 && n < 0);
   if (d < 0) den = -d; else den = d;
   if (n < 0) num = -n; else num = n;
-
-  if (neg) expr = "-"; else expr = "";
-  expr += intToStr(d) + " / " + intToStr(n);
 }
 
 Rational::Rational(const unsigned int &d,
@@ -52,9 +46,6 @@ Rational::Rational(const unsigned int &d,
   neg = ne;
   den = d;
   num = n;
-
-  if (neg) expr = "-"; else expr = "";
-  expr += intToStr(d) + " / " + intToStr(n);
 }
 
 void Rational::simplify() {
@@ -82,7 +73,6 @@ Rational Rational::operator +(const Rational &r) const {
   if (ne) d *= -1;
   Rational ret(d, n, ne);
   ret.simplify();
-  ret.expr = '(' + this->expr + ") + (" + r.expr + ')';
   return ret;
 }
 
@@ -92,13 +82,11 @@ Rational Rational::operator *(const Rational &r) const {
   unsigned int n = num * r.num;
   Rational ret(d, n, ne);
   ret.simplify();
-  ret.expr = '(' + this->expr + ") * (" + r.expr + ')';
   return ret;
 }
 
 Rational Rational::operator -(const Rational &r) const {
   Rational ret = *this + (Rational(-1) * r);
-  ret.expr = '(' + this->expr + ") - (" + r.expr + ')';
   return ret;
 }
 
@@ -108,7 +96,6 @@ Rational Rational::operator /(const Rational &r) const {
   unsigned int n = num * r.den;
   Rational ret(d, n, ne);
   ret.simplify();
-  ret.expr = '(' + this->expr + ") / (" + r.expr + ')';
   return ret;
 }
 

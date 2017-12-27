@@ -4,6 +4,7 @@
 #include <Rcpp.h>
 #include "rational.h"
 #include "reduction.h"
+#include "with-expr.h"
 using namespace std;
 using namespace Rcpp;
 
@@ -97,14 +98,41 @@ bool ReductionIterator<Rational>::isValid() {
   // if op is division, j must not be zero
   if ((*op == '/') && (j->den == 0)) return false;
 
+  return true;
+}
+
+template <>
+bool ReductionIterator< NumberWithExpr<int> >::isValid() {
+  // i must not be equal to j
+  if (i == j) return false;
+
+  // if op is division, then
+  //   j must not be zero and
+  //   i mof j must equal zero
+  if (*op == '/') {
+    if ((*j == 0) || (i->data % j->data != 0)) return false;
+  }
 
   return true;
 }
 
+template <>
+bool ReductionIterator< NumberWithExpr<Rational> >::isValid() {
+  // i must not be equal to j
+  if (i == j) return false;
+
+  // if op is division, j must not be zero
+  if ((*op == '/') && (j->data.den == 0)) return false;
+
+
+  return true;
+}
 
 // template class instantiation
 template class ReductionIterator<int>;
 template class ReductionIterator<Rational>;
+template class ReductionIterator< NumberWithExpr<int> >;
+template class ReductionIterator< NumberWithExpr<Rational> >;
 
 
 

@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "rational.h"
 #include "reduction.h"
+#include "solver.h"
 using namespace std;
 using namespace Rcpp;
 
@@ -28,66 +29,45 @@ void test_utils() {
 // [[Rcpp::export]]
 void test_rational() {
   Rational x(3);
-  Rcout << x.expr << "\n";
   x.print();
 
   Rational y(3, 5);
-  Rcout << y.expr << "\n";
   y.print();
 
   Rational z(2, 4, true);
-  Rcout << z.expr << "\n";
   z.print();
 
   z.simplify();
-  Rcout << z.expr << "\n";
   z.print();
 
   Rational w(0);
-  Rcout << w.expr << "\n";
   w.print();
 
   Rational v(-15);
-  Rcout << v.expr << "\n";
   v.print();
 
-  Rcout << (x + y).expr << '\n';
   (x + y).print();
-  Rcout << (x - y).expr << "\n";
   (x - y).print();
-  Rcout << (x * y).expr << "\n";
   (x * y).print();
-  Rcout << (x / y).expr << "\n";
   (x / y).print();
 
-  Rcout << (z + y).expr << "\n";
   (z + y).print();
-  Rcout << (z - y).expr << "\n";
   (z - y).print();
-  Rcout << (z * y).expr << "\n";
   (z * y).print();
-  Rcout << (z / y).expr << "\n";
   (z / y).print();
 
   Rcout << (x < y) << "\n";
   Rcout << (z < y) << "\n";
 
-  Rcout << (y + w).expr << '\n';
   (y + w).print();
-  Rcout << (y - w).expr << "\n";
   (y - w).print();
-  Rcout << (y * w).expr << "\n";
   (y * w).print();
   //Rcout << (y / w).expr << "\n";
   //(y / w).print();
 
-  Rcout << (w + y).expr << "\n";
   (w + y).print();
-  Rcout << (w - y).expr << "\n";
   (w - y).print();
-  Rcout << (w * y).expr << "\n";
   (w * y).print();
-  Rcout << (w / y).expr << "\n";
   (w / y).print();
 
   Rcout << (x < w) << "\n";
@@ -184,4 +164,5 @@ void test_reduction() {
  tenpuzzle:::test_utils()
  tenpuzzle:::test_rational()
  tenpuzzle:::test_reduction()
+ tenpuzzle:::SolveTenPuzzle(c(1, 1, 9, 9), 10)
 */

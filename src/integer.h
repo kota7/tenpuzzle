@@ -1,5 +1,5 @@
-#ifndef RATIONALHEADERDEF
-#define RATIONALHEADERDEF
+#ifndef INTEGERHEADERDEF
+#define INTEGERHEADERDEF
 
 
 #include <string>
@@ -9,26 +9,24 @@ using namespace std;
 using namespace Rcpp;
 
 
-struct Rational
+struct Integer
 {
   // define a number by its sign, denominator and numerator
-  bool neg;
-  unsigned int den;
-  unsigned int num;
+  int data;
+  // preserves a math expression how this number has been created
+  string expr;
 
   // constractors
-  Rational();
-  Rational(const int &i);
-  Rational(const int &d, const int &n);
-  Rational(const unsigned int &d, const unsigned int &n, const bool &ne);
+  Integer();
+  Integer(const int &i);
 
   void simplify();  // simplify the denominator and numerator as possible
 
   // four basic math operations
-  Rational operator +(const Rational &r) const;
-  Rational operator -(const Rational &r) const;
-  Rational operator *(const Rational &r) const;
-  Rational operator /(const Rational &r) const;
+  Integer operator +(const Rational &r) const;
+  Integer operator -(const Rational &r) const;
+  Integer operator *(const Rational &r) const;
+  Integer operator /(const Rational &r) const;
 
   // equality and inequality operation
   bool operator <(const Rational &r) const;
