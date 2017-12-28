@@ -39,16 +39,30 @@ test_that("solutions are correct", {
 
   # randomly generated cases
   set.seed(87)
-  for (m in 1:20) {
+  for (m in 1:10) {
     n <- sample(1:4, 1)
     x <- sample(1:9, n, replace=TRUE)
     tgt <- sample(1:20, 1)
     helper(x, tgt)
   }
-  for (m in 1:5) {
+  for (m in 1:3) {
     x <- sample(1:9, 5, replace=TRUE)
     tgt <- sample(1:20, 1)
     helper(x, tgt)
   }
 
+})
+
+
+
+test_that("brute force result matches results with findone=FALSE, useup=TRUE", {
+  x <- c(1, 1, 9, 9)
+  tgt <- 10
+  a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
+  a2 <- tenpuzzle_bf(x, tgt)
+  # normalize the strings for comparison
+  a1 <- sort(gsub(' ', '', a1))
+  a2 <- sort(gsub(' ', '', a2))
+  msg <- sprintf("IN: ([%s], %d)", paste0(x, collapse=','), tgt)
+  expect_equal(a1, a2, info=msg)
 })

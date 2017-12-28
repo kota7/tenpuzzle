@@ -6,11 +6,12 @@ using namespace Rcpp;
 
 
 CharacterVector CleanParen(CharacterVector expr) {
+  CharacterVector ret(expr.size());
   for (int i = 0; i < expr.size(); i++) {
-    expr[i] = CleanParenSingle(as<string>(expr[i]));
+    ret[i] = CleanParenSingle(as<string>(expr[i]));
   }
 
-  return expr;
+  return ret;
 }
 
 
