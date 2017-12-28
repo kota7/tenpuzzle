@@ -13,7 +13,8 @@
 #' @examples
 #' \dontrun{
 #' tensolve(c(1, 1, 9, 9), 10)
-#' tensolve(c(1, 1, 9, 9), 10, FALSE)
+#' tensolve(c(1, 1, 9, 9), 10, findone=FALSE)
+#' tensolve(c(1, 1, 9, 9), 10, useup=FALSE)
 #' }
 tensolve <- function(x, tgt=10, findone=TRUE, useup=TRUE) {
   ret <- SolveTenPuzzle(x, tgt, findone, useup) %>% clean_expr() %>% unique()
