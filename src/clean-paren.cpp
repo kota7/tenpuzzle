@@ -95,7 +95,7 @@ size_t CleanParenHelper(string &x, size_t pos) {
       }
       return i+1;
     } else {
-      if (x[i] == '+' || x[i] == '-') redundant = false;
+      if (x[i] == '+' || x[i] == '-' || x[i] == '/') redundant = false;
       i++;
     }
   }
