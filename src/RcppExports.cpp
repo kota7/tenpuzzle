@@ -6,15 +6,16 @@
 using namespace Rcpp;
 
 // SolveTenPuzzle
-CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool one);
-RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP oneSEXP) {
+CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useup);
+RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
-    Rcpp::traits::input_parameter< bool >::type one(oneSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, one));
+    Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
+    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
+    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useup));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -58,7 +59,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 3},
+    {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 4},
     {"_tenpuzzle_CleanParen", (DL_FUNC) &_tenpuzzle_CleanParen, 1},
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
     {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},

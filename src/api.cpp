@@ -4,7 +4,8 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool one) {
+CharacterVector SolveTenPuzzle(IntegerVector x, int tgt,
+                               bool findone, bool useup) {
   Rational t(tgt);
   TenSolver<Rational> obj(t);
   multiset< NumberWithExpr<Rational> > y;
@@ -12,7 +13,7 @@ CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool one) {
     Rational tmp(x[i]);
     y.insert(NumberWithExpr<Rational>(tmp));
   }
-  obj.solve(y, one);
+  obj.solve(y, findone, useup);
 
   CharacterVector ret;
   for (set<string>::iterator i=obj.answers.begin();

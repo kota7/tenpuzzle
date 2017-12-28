@@ -4,14 +4,18 @@
 \alias{tensolve}
 \title{Ten puzzle solver}
 \usage{
-tensolve(x, tgt = 10, findone = TRUE)
+tensolve(x, tgt = 10, findone = TRUE, useup = TRUE)
 }
 \arguments{
 \item{x}{an integer vector}
 
 \item{tgt}{an integer of target}
 
-\item{findone}{if \code{TRUE}, search for an answer; otherwise search exhaustively}
+\item{findone}{if \code{TRUE}, search for an answer;
+otherwise search exhaustively}
+
+\item{useup}{if \code{TRUE}, requires all numbers are used;
+otherwise some number may remain unused}
 }
 \value{
 a character vector of answers
