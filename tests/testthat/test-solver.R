@@ -55,7 +55,7 @@ test_that("solutions are correct", {
 
 
 
-test_that("brute force result matches results with findone=FALSE, useup=TRUE", {
+test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
   x <- c(1, 1, 9, 9)
   tgt <- 10
   a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
