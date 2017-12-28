@@ -11,12 +11,11 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' tensolve(c(1, 1, 9, 9), 10)
-#' tensolve(c(1, 1, 9, 9), 10, findone=FALSE)
-#' tensolve(c(1, 1, 9, 9), 10, useup=FALSE)
-#' }
-tensolve <- function(x, tgt=10, findone=TRUE, useup=TRUE) {
+#' tenpuzzle(c(1, 1, 9, 9), 10)
+#' tenpuzzle(c(1, 1, 9, 9), 10, findone=FALSE)
+#' tenpuzzle(c(1, 1, 9, 9), 10, useup=FALSE)
+#'
+tenpuzzle <- function(x, tgt=10, findone=TRUE, useup=TRUE) {
   ret <- SolveTenPuzzle(x, tgt, findone, useup) %>% clean_expr() %>% unique()
   ret
 }
@@ -34,11 +33,9 @@ tensolve <- function(x, tgt=10, findone=TRUE, useup=TRUE) {
 #' @return a character vector of all possible answers
 #'
 #' @examples
-#' \dontrun{
-#' tensolve_bf(c(1, 1, 9, 9), 10)
-#' }
+#' tenpuzzle_bf(c(1, 1, 9, 9), 10)
 #' @export
-tensolve_bf <- function(x, tgt=10) {
+tenpuzzle_bf <- function(x, tgt=10) {
 
   # number of input integers
   n <- length(x)

@@ -50,7 +50,7 @@ struct NumberWithExpr
   }
   NumberWithExpr operator /(const NumberWithExpr &y) const {
     NumberWithExpr ret(data / y.data);
-    ret.expr = '(' + expr + ") * (" + y.expr + ')';
+    ret.expr = '(' + expr + ") / (" + y.expr + ')';
     return ret;
   }
 
