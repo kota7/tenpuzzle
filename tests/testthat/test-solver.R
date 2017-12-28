@@ -1,6 +1,6 @@
 library(testthat)
 library(tenpuzzle)
-
+library(magrittr)
 
 
 test_that("solutions are correct", {
@@ -8,13 +8,11 @@ test_that("solutions are correct", {
   helper <- function(x, tgt) {
     inner <- function(x, tgt, findone, useup) {
       answers <- tenpuzzle(x, tgt, findone, useup)
-      j <- 0
-      for (a in answers) {
-        j <- j + 1
-        val <- eval(parse(text=a))
-        msg <- sprintf("IN: ([%s], %d, %d, %d), OUT(%d): %s = 10 gets %f",
-                       paste0(x, collapse=','), tgt, findone, useup, j, a, val)
-        expect_equal(val, tgt, info=msg)
+      if (length(answers) > 0) {
+        values  <- sapply(answers, function(a) eval(parse(text=a))) %>% unname()
+        msg <- sprintf("IN: ([%s], %d, %d, %d)",
+                       paste0(x, collapse=','), tgt, findone, useup)
+        expect_equal(values, rep(tgt, length(answers)), info=msg)
       }
     }
 
@@ -34,7 +32,7 @@ test_that("solutions are correct", {
   helper(c(1, 1, 5, 9), 4)
   helper(c(8, 1, 5, 4, 7), 100)
 
-  #  edge cases
+  # edge cases
   helper(5, 5)
   helper(5, 7)
 
@@ -42,7 +40,15 @@ test_that("solutions are correct", {
   # randomly generated cases
   set.seed(87)
   for (m in 1:20) {
-    n <- sample(1:5)
+    n <- sample(1:4, 1)
+    x <- sample(1:9, n, replace=TRUE)
+    tgt <- sample(1:20, 1)
+    helper(x, tgt)
+  }
+  for (m in 1:5) {
+    x <- sample(1:9, 5, replace=TRUE)
+    tgt <- sample(1:20, 1)
+    helper(x, tgt)
   }
 
 })
