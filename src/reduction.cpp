@@ -129,10 +129,10 @@ bool ReductionIterator< NumberWithExpr<Rational> >::isValid() {
 }
 
 // template class instantiation
-template class ReductionIterator<int>;
-template class ReductionIterator<Rational>;
-template class ReductionIterator< NumberWithExpr<int> >;
-template class ReductionIterator< NumberWithExpr<Rational> >;
+template struct ReductionIterator<int>;
+template struct ReductionIterator<Rational>;
+template struct ReductionIterator< NumberWithExpr<int> >;
+template struct ReductionIterator< NumberWithExpr<Rational> >;
 
 
 

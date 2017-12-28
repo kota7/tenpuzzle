@@ -2,6 +2,7 @@
 #'
 #' @param x   an integer vector
 #' @param tgt an integer of target
+#' @param findone if \code{TRUE}, search for an answer; otherwise search exhaustively
 #'
 #' @return a character vector of answers
 #' @export
@@ -9,9 +10,10 @@
 #' @examples
 #' \dontrun{
 #' tensolve(c(1, 1, 9, 9), 10)
+#' tensolve(c(1, 1, 9, 9), 10, FALSE)
 #' }
-tensolve <- function(x, tgt=10) {
-  ret <- SolveTenPuzzle(x, tgt) %>% clean_expr() %>% unique()
+tensolve <- function(x, tgt=10, findone=TRUE) {
+  ret <- SolveTenPuzzle(x, tgt, findone) %>% clean_expr() %>% unique()
   ret
 }
 

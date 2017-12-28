@@ -4,12 +4,14 @@
 \alias{tensolve}
 \title{Ten puzzle solver}
 \usage{
-tensolve(x, tgt = 10)
+tensolve(x, tgt = 10, findone = TRUE)
 }
 \arguments{
 \item{x}{an integer vector}
 
 \item{tgt}{an integer of target}
+
+\item{findone}{if \code{TRUE}, search for an answer; otherwise search exhaustively}
 }
 \value{
 a character vector of answers
@@ -20,5 +22,6 @@ Ten puzzle solver
 \examples{
 \dontrun{
 tensolve(c(1, 1, 9, 9), 10)
+tensolve(c(1, 1, 9, 9), 10, FALSE)
 }
 }
