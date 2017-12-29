@@ -56,13 +56,18 @@ test_that("solutions are correct", {
 
 
 test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
-  x <- c(1, 1, 9, 9)
-  tgt <- 10
-  a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
-  a2 <- tenpuzzle_bf(x, tgt)
-  # normalize the strings for comparison
-  a1 <- sort(gsub(' ', '', a1))
-  a2 <- sort(gsub(' ', '', a2))
-  msg <- sprintf("IN: ([%s], %d)", paste0(x, collapse=','), tgt)
-  expect_equal(a1, a2, info=msg)
+
+  helper <- function(x, tgt) {
+    a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
+    a2 <- tenpuzzle_bf(x, tgt)
+    # normalize the strings for comparison
+    a1 <- sort(gsub(' ', '', a1))
+    a2 <- sort(gsub(' ', '', a2))
+    msg <- sprintf("IN: ([%s], %d)", paste0(x, collapse=','), tgt)
+    expect_equal(a1, a2, info=msg)
+  }
+
+  helper(c(1, 1, 9, 9), 10)
+  helper(c(4, 4, -4, 1), 5)
+  helper(c(-5, 7, 9), -10)
 })

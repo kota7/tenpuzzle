@@ -85,11 +85,13 @@ void CleanParenHelper(string &x, size_t &pos,
   bool started = false;     // indicates that some expression has started
   bool noOps = true;        // indicates no operator inside
   bool noPlusMinus = true;  // indicates no plus or minus
+  bool ledByMinus = false;  // indicates inner expression starts with minus
   while (pos < x.size()) {
     //Rcout << i << '\n';
     // check for leading plus signs
     if (!started) {
       if (x[pos] == '+') x[pos] = ' ';
+      if (x[pos] == '-') ledByMinus = true;
       if (x[pos] != ' ') started = true;
     }
 
@@ -99,8 +101,9 @@ void CleanParenHelper(string &x, size_t &pos,
       char op_l = prevOp[pos_s];
       char op_r = nextOp[pos];
       // sufficient conditions for parentheses being unnecessary
-      // - led by minus or division, provided that there is some operator inside
-      if (!noOps && (op_l == '-' || op_l == '/')) {
+      // - follows division, provided that there is some operator inside
+      // - starts with minus sign
+      if ((!noOps && op_l == '/') || ledByMinus) {
         pos++;
         return;
       }
@@ -108,9 +111,9 @@ void CleanParenHelper(string &x, size_t &pos,
       // - expression inside has no operator
       // - no operator at left nor right, i.e. independent parenthesis
       // - there is no "multiplication" around; i.e.,
-      //   not led by *, /, or - (leading - is same as multiplying -1)
+      //   not follows *, /, or - (`-` is same as multiplying -1)
       //   and not followed by * or /
-      // - no plus or minus inside, provided that not led by division
+      // - no plus or minus inside, provided that not following division sign
       if (noOps || (op_l==' ' && op_r==' ') ||
           (op_l!='*' && op_l!='/' && op_l!='-' &&  op_r!='*' && op_r!='/') ||
           (op_l != '/' && noPlusMinus)) {
