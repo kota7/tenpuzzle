@@ -5,6 +5,10 @@ SolveTenPuzzle <- function(x, tgt, findone, useup) {
     .Call('_tenpuzzle_SolveTenPuzzle', PACKAGE = 'tenpuzzle', x, tgt, findone, useup)
 }
 
+SolveTenPuzzleInt <- function(x, tgt, findone, useup) {
+    .Call('_tenpuzzle_SolveTenPuzzleInt', PACKAGE = 'tenpuzzle', x, tgt, findone, useup)
+}
+
 CleanParen <- function(expr) {
     .Call('_tenpuzzle_CleanParen', PACKAGE = 'tenpuzzle', expr)
 }
