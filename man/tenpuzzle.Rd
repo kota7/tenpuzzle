@@ -4,7 +4,7 @@
 \alias{tenpuzzle}
 \title{Ten puzzle solver}
 \usage{
-tenpuzzle(x, tgt = 10, findone = TRUE, useup = TRUE)
+tenpuzzle(x, tgt = 10, findone = TRUE, useup = TRUE, intonly = FALSE)
 }
 \arguments{
 \item{x}{an integer vector}
@@ -16,6 +16,10 @@ otherwise search exhaustively}
 
 \item{useup}{if \code{TRUE}, requires all numbers are used;
 otherwise some number may remain unused}
+
+\item{intonly}{if \code{TRUE}, requires all numbers are integers in
+every step of calculation; otherwise fractions may appear
+in interim steps}
 }
 \value{
 a character vector of answers
@@ -28,4 +32,7 @@ tenpuzzle(c(1, 1, 9, 9), 10)
 tenpuzzle(c(1, 1, 9, 9), 10, findone=FALSE)
 tenpuzzle(c(1, 1, 9, 9), 10, useup=FALSE)
 
+# integer only
+tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=FALSE)
+tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=TRUE)
 }
