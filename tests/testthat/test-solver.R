@@ -38,10 +38,10 @@ test_that("solutions are correct", {
 
 
   # randomly generated cases
-  set.seed(87)
+  set.seed(123)
   for (m in 1:20) {
     n <- sample(1:4, 1)
-    x <- sample((-9):9, n, replace=TRUE)
+    x <- sample((-20):20, n, replace=TRUE)
     tgt <- sample((-20):20, 1)
     helper(x, tgt)
   }
@@ -69,5 +69,22 @@ test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
 
   helper(c(1, 1, 9, 9), 10)
   helper(c(4, 4, -4, 1), 5)
-  helper(c(-5, 7, 9), -10)
+  helper(c(-6, 2, 9), -3)
+
+  # randomly generated cases
+  # note: input with 5 numbers takes too long time for brute force solver
+  set.seed(123)
+  for (m in 1:20) {
+    n <- sample(1:3, 1)
+    x <- sample((-20):20, n, replace=TRUE)
+    tgt <- sample((-20):20, 1)
+    helper(x, tgt)
+  }
+  for (m in 1:3) {
+    n <- 4
+    x <- sample((-20):20, n, replace=TRUE)
+    tgt <- sample((-20):20, 1)
+    helper(x, tgt)
+  }
+
 })
