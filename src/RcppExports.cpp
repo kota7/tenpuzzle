@@ -71,6 +71,15 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test_hash
+void test_hash();
+RcppExport SEXP _tenpuzzle_test_hash() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test_hash();
+    return R_NilValue;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 4},
@@ -79,6 +88,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
     {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},
     {"_tenpuzzle_test_reduction", (DL_FUNC) &_tenpuzzle_test_reduction, 0},
+    {"_tenpuzzle_test_hash", (DL_FUNC) &_tenpuzzle_test_hash, 0},
     {NULL, NULL, 0}
 };
 
