@@ -38,11 +38,11 @@ test_that("solutions are correct", {
 
 
   # randomly generated cases
-  set.seed(87)
-  for (m in 1:10) {
+  set.seed(123)
+  for (m in 1:20) {
     n <- sample(1:4, 1)
-    x <- sample(1:9, n, replace=TRUE)
-    tgt <- sample(1:20, 1)
+    x <- sample((-20):20, n, replace=TRUE)
+    tgt <- sample((-20):20, 1)
     helper(x, tgt)
   }
   for (m in 1:3) {
@@ -56,13 +56,35 @@ test_that("solutions are correct", {
 
 
 test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
-  x <- c(1, 1, 9, 9)
-  tgt <- 10
-  a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
-  a2 <- tenpuzzle_bf(x, tgt)
-  # normalize the strings for comparison
-  a1 <- sort(gsub(' ', '', a1))
-  a2 <- sort(gsub(' ', '', a2))
-  msg <- sprintf("IN: ([%s], %d)", paste0(x, collapse=','), tgt)
-  expect_equal(a1, a2, info=msg)
+
+  helper <- function(x, tgt) {
+    a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
+    a2 <- tenpuzzle_bf(x, tgt)
+    # normalize the strings for comparison
+    a1 <- sort(gsub(' ', '', a1))
+    a2 <- sort(gsub(' ', '', a2))
+    msg <- sprintf("IN: ([%s], %d)", paste0(x, collapse=','), tgt)
+    expect_equal(a1, a2, info=msg)
+  }
+
+  helper(c(1, 1, 9, 9), 10)
+  helper(c(4, 4, -4, 1), 5)
+  helper(c(-6, 2, 9), -3)
+
+  # randomly generated cases
+  # note: input with 5 numbers takes too long time for brute force solver
+  set.seed(123)
+  for (m in 1:20) {
+    n <- sample(1:3, 1)
+    x <- sample((-20):20, n, replace=TRUE)
+    tgt <- sample((-20):20, 1)
+    helper(x, tgt)
+  }
+  for (m in 1:3) {
+    n <- 4
+    x <- sample((-20):20, n, replace=TRUE)
+    tgt <- sample((-20):20, 1)
+    helper(x, tgt)
+  }
+
 })

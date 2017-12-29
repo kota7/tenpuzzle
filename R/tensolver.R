@@ -99,7 +99,8 @@ tenpuzzle_bf <- function(x, tgt=10) {
 
 
   # possible permutations
-  perms <- unique(combinat::permn(x))
+  # surround numbers by parenthesis to make it robust to negative numbers
+  perms <- unique(combinat::permn(paste0('(', x, ')')))
   perms_dat <- as.data.frame(matrix(unlist(perms), ncol=n, byrow=TRUE))
   names(perms_dat) <- paste0('num', 1:n)
 

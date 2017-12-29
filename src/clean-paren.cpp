@@ -1,107 +1,139 @@
-#include <string>
-#include <Rcpp.h>
 #include "clean-paren.h"
-using namespace std;
-using namespace Rcpp;
 
 
 CharacterVector CleanParen(CharacterVector expr) {
   CharacterVector ret(expr.size());
   for (int i = 0; i < expr.size(); i++) {
-    ret[i] = CleanParenSingle(as<string>(expr[i]));
+    string x = as<string>(expr[i]);
+    CleanParenSingle(x);
+    ret[i] = x;
   }
 
   return ret;
 }
 
 
-string CleanParenSingle(string x) {
+void CleanParenSingle(string &x) {
+  // This function removes unnecessary parentheses
+  // from a mathematical expression.
+  // It also removes leading plus sign, if any.
 
-  // *** remove unnecessary inner parenthesis
+
+  // put the expression inside a parenthesis
+  // for ease of later process
+  x = '(' + x + ')';
+
+  // as a preparation, store the prev and next operators
+  // for each parenthesis;
+  vector<char> prevOp(x.size(), ' ');
+  vector<char> nextOp(x.size(), ' ');
+  char op = ' ';
+  for (size_t i=0; i < x.size(); i++) {
+    if (x[i] == '(') {
+      // new parenthesis started.
+      // record its prev as the current op,
+      // then clear the op
+      prevOp[i] = op;
+      op = ' ';
+    } else if (x[i] == '+' || x[i] == '-' || x[i] == '*' || x[i] == '/') {
+      op = x[i];
+    } else if (x[i] == ')') {
+      // regard an closing parentheses as implicit multiplication,
+      // if there is no operator in between
+      // e.g. (1 + 3) (5 - 2)
+      op = '*';
+    }
+  }
+  op = ' ';
+  for (size_t i = x.size()-1; i+1 > 0; i--) {
+    if (x[i] == ')') {
+      nextOp[i] = op;
+      op = ' ';
+    } else if (x[i] == '+' || x[i] == '-' || x[i] == '*' || x[i] == '/') {
+      op = x[i];
+    } else if (x[i] == '(') {
+      op = '*';
+    }
+  }
+
   size_t pos = 0;
   while (pos < x.size()) {
-    if (x[pos] == '(') {
-      pos = CleanParenHelper(x, pos);
-    } else {
-      pos++;
-    }
+    // check for a parenthesis, recursively
+    // the helper function returns the new position
+    if (x[pos] == '(') CleanParenHelper(x, pos, prevOp, nextOp); else pos++;
   }
-  // ***
 
 
-  // *** remove parenthesis for the whole expression, if any
-  int left = -1;
-  // search for left parenthesis (before any letter except for space)
-  for (size_t i = 0; i < x.size(); i++) {
-    // if first letter (except for space) is not parenthesis
-    // then there is no parenthesis surrounding all
-    if (x[i] != '(' && x[i] != ' ') return x;
-
-    if (x[i] == '(') {
-      left = i;
-      break;
-    }
-  }
-  // search right parenthesis that match the left
-  int right = -1;
-  int open = 1;
-  for (size_t i = left+1; i < x.size(); i++) {
-    if (x[i] == '(') {
-      open++;
-    } else if (x[i] == ')') {
-      open--;
-      if (open == 0) {
-        right = i;
-        break;
-      }
-    }
-  }
-  if (right < 0) {
-    warning("parenthesis did not close");
-    return x;
-  }
-  // check if there is no letter but space after right
-  // othersize, there is no parenthesis surrounding all
-  for (size_t i = right+1; i < x.size(); i++) {
-    if (x[i] != '(' & x[i] != ')' & x[i] != ' ') return x;
-  }
-  // reaching here implies the parenthesis at left, right
-  // surrounds whole expression
-  if (left >= 0 && right >= 0) {
-    x[left] = ' ';
-    x[right] = ' ';
-  }
-  // ***
-
-  return x;
+  // remove first and last letter, added at the top
+  x = x.substr(1, x.size()-2);
 
 }
 
-size_t CleanParenHelper(string &x, size_t pos) {
-  // assuming that x[pos] is '(',
+
+void CleanParenHelper(string &x, size_t &pos,
+                      const vector<char> &prevOp, const vector<char> &nextOp) {
+  // Assuming that x[pos] is '(',
   // this function removes unnecessary parentheses
-  // until the matching ')'
+  // until the matching ')'; and leading plus sign, if any
+  // Also, leading plus sign is also removed
   //
-  // returns the position right after the closing parenthesis
-  bool redundant = true;
-  size_t i = pos + 1;
-  while (i < x.size()) {
+  // pos is the current position and is update along the way
+  // when ending, set to the position right after the closing parenthesis
+
+  size_t pos_s = pos;       // remember the position of opening parenthesis
+  pos++;
+  bool started = false;     // indicates that some expression has started
+  bool noOps = true;        // indicates no operator inside
+  bool noPlusMinus = true;  // indicates no plus or minus
+  bool ledByMinus = false;  // indicates inner expression starts with minus
+  while (pos < x.size()) {
     //Rcout << i << '\n';
-    if (x[i] == '(') {
-      i = CleanParenHelper(x, i);
-    } else if (x[i] == ')') {
-      if (redundant) {
-        x[pos] = ' ';
-        x[i] = ' ';
+    // check for leading plus signs
+    if (!started) {
+      if (x[pos] == '+') x[pos] = ' ';
+      if (x[pos] == '-') ledByMinus = true;
+      if (x[pos] != ' ') started = true;
+    }
+
+    if (x[pos] == '(') {
+      CleanParenHelper(x, pos, prevOp, nextOp);
+    } else if (x[pos] == ')') {
+      char op_l = prevOp[pos_s];
+      char op_r = nextOp[pos];
+      // sufficient conditions for parentheses being unnecessary
+      // - follows division, provided that there is some operator inside
+      // - starts with minus sign
+      if ((!noOps && op_l == '/') || ledByMinus) {
+        pos++;
+        return;
       }
-      return i+1;
+      // sufficient conditions for parentheses being unnecessary
+      // - expression inside has no operator
+      // - no operator at left nor right, i.e. independent parenthesis
+      // - there is no "multiplication" around; i.e.,
+      //   not follows *, /, or - (`-` is same as multiplying -1)
+      //   and not followed by * or /
+      // - no plus or minus inside, provided that not following division sign
+      if (noOps || (op_l==' ' && op_r==' ') ||
+          (op_l!='*' && op_l!='/' && op_l!='-' &&  op_r!='*' && op_r!='/') ||
+          (op_l != '/' && noPlusMinus)) {
+        x[pos_s] = ' ';
+        x[pos] = ' ';
+      }
+      pos++;
+      return;
     } else {
-      if (x[i] == '+' || x[i] == '-' || x[i] == '/') redundant = false;
-      i++;
+      // update key status
+      if (x[pos] == '+' || x[pos] == '-') {
+        noPlusMinus = false;
+      }
+      if (x[pos] == '+' || x[pos] == '-' || x[pos] == '*' || x[pos] == '/') {
+        noOps = false;
+      }
+      pos++;
     }
   }
   warning("parenthesis did not close\n");
-  return x.size();
 }
 
 
