@@ -39,10 +39,10 @@ test_that("solutions are correct", {
 
   # randomly generated cases
   set.seed(87)
-  for (m in 1:10) {
+  for (m in 1:20) {
     n <- sample(1:4, 1)
-    x <- sample(1:9, n, replace=TRUE)
-    tgt <- sample(1:20, 1)
+    x <- sample((-9):9, n, replace=TRUE)
+    tgt <- sample((-20):20, 1)
     helper(x, tgt)
   }
   for (m in 1:3) {
