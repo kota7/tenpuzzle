@@ -63,4 +63,19 @@ struct NumberWithExpr
 
 
 
+
+// hash function for number-with-expr
+// just use the hash for the `data` field
+namespace std
+{
+template <class T>
+struct hash< NumberWithExpr<T> >
+{
+  size_t operator()(const NumberWithExpr<T> &x) const {
+    return hash<T>()(x.data);
+  }
+};
+}
+
+
 #endif
