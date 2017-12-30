@@ -50,6 +50,11 @@ struct Rational
     return stream;
   }
 
+
+  friend string toStr(const Rational &x) {
+    return x.str();
+  }
+
 };
 
 

@@ -10,10 +10,6 @@ using namespace std;
 using namespace Rcpp;
 
 
-// functions to compute the string expression of a number
-string toStr(const int &x);
-string toStr(const Rational &x);
-
 
 template <class T>
 struct NumberWithExpr

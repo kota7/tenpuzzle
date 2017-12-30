@@ -10,6 +10,7 @@ using namespace Rcpp;
 
 int gcd(int a, int b);
 string intToStr(int x);
+string toStr(const int &x);
 
 
 #endif
