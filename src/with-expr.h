@@ -32,34 +32,39 @@ struct NumberWithExpr
     expr = toStr(data);
   }
 
-
+  // unary minus operator
+  NumberWithExpr<T> operator-() const {
+    NumberWithExpr<T> ret = this->operator-();
+    ret.expr = "-(" + expr + ')';
+    return ret;
+  }
   // four basic math operations
-  NumberWithExpr operator +(const NumberWithExpr &y) const {
-    NumberWithExpr ret(data + y.data);
+  NumberWithExpr<T> operator +(const NumberWithExpr<T> &y) const {
+    NumberWithExpr<T> ret(data + y.data);
     ret.expr = '(' + expr + ") + (" + y.expr + ')';
     return ret;
   }
-  NumberWithExpr operator -(const NumberWithExpr &y) const {
-    NumberWithExpr ret(data - y.data);
+  NumberWithExpr<T> operator -(const NumberWithExpr<T> &y) const {
+    NumberWithExpr<T> ret(data - y.data);
     ret.expr = '(' + expr + ") - (" + y.expr + ')';
     return ret;
   }
-  NumberWithExpr operator *(const NumberWithExpr &y) const {
-    NumberWithExpr ret(data * y.data);
+  NumberWithExpr<T> operator *(const NumberWithExpr<T> &y) const {
+    NumberWithExpr<T> ret(data * y.data);
     ret.expr = '(' + expr + ") * (" + y.expr + ')';
     return ret;
   }
-  NumberWithExpr operator /(const NumberWithExpr &y) const {
-    NumberWithExpr ret(data / y.data);
+  NumberWithExpr<T> operator /(const NumberWithExpr<T> &y) const {
+    NumberWithExpr<T> ret(data / y.data);
     ret.expr = '(' + expr + ") / (" + y.expr + ')';
     return ret;
   }
 
   // equality and inequality operation
-  bool operator <(const NumberWithExpr &y)  const { return data < y.data; };
-  bool operator ==(const NumberWithExpr &y) const { return data == y.data; };
-  bool operator >(const NumberWithExpr &y)  const { return y.data < data; }
-  bool operator !=(const NumberWithExpr &y) const { return !(data == y.data); }
+  bool operator <(const NumberWithExpr &y)  const { return data < y.data; }
+  bool operator ==(const NumberWithExpr &y) const { return data == y.data; }
+  bool operator >(const NumberWithExpr &y)  const { return y < *this; }
+  bool operator !=(const NumberWithExpr &y) const { return !(*this == y); }
 
 
   // ostream
@@ -77,13 +82,13 @@ struct NumberWithExpr
 // just use the hash for the `data` field
 namespace std
 {
-template <class T>
-struct hash< NumberWithExpr<T> >
-{
-  size_t operator()(const NumberWithExpr<T> &x) const {
-    return hash<T>()(x.data);
-  }
-};
+  template <class T>
+  struct hash< NumberWithExpr<T> >
+  {
+    size_t operator()(const NumberWithExpr<T> &x) const {
+      return hash<T>()(x.data);
+    }
+  };
 }
 
 

@@ -25,9 +25,14 @@ struct Rational
 
   void simplify();  // simplify the denominator and numerator as possible
 
+  // unary minus operator
+  Rational operator -() const {
+    if (den == 0) return *this;
+    return Rational(den, num, !neg);
+  }
   // four basic math operations
   Rational operator +(const Rational &r) const;
-  Rational operator -(const Rational &r) const;
+  Rational operator -(const Rational &r) const { return this->operator+(-r); }
   Rational operator *(const Rational &r) const;
   Rational operator /(const Rational &r) const;
 

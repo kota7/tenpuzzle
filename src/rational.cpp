@@ -85,11 +85,6 @@ Rational Rational::operator *(const Rational &r) const {
   return ret;
 }
 
-Rational Rational::operator -(const Rational &r) const {
-  Rational ret = *this + (Rational(-1) * r);
-  return ret;
-}
-
 Rational Rational::operator /(const Rational &r) const {
   bool ne = (neg && !r.neg) || (!neg && r.neg);
   unsigned int d = den * r.num;
