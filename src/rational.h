@@ -55,6 +55,13 @@ struct Rational
     return x.str();
   }
 
+  friend Rational abs(const Rational &x) {
+    if (!x.neg || x.den==0) return x;
+    Rational ret = x;
+    ret.neg = !ret.neg;
+    return ret;
+  }
+
 };
 
 

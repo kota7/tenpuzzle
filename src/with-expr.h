@@ -3,6 +3,7 @@
 
 
 #include <string>
+#include <cmath>
 #include <Rcpp.h>
 #include "utils.h"
 #include "rational.h"
@@ -67,6 +68,13 @@ struct NumberWithExpr
   friend ostream& operator<< (ostream& stream, const NumberWithExpr<T>& x) {
     stream << x.data;
     return stream;
+  }
+
+  // absolute value
+  friend NumberWithExpr<T> abs(NumberWithExpr<T> &x) {
+    NumberWithExpr<T> ret(abs(x.data));
+    ret.expr = '|' + x.expr + '|';
+    return ret;
   }
 
 };
