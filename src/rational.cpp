@@ -122,7 +122,4 @@ string Rational::str() const {
   return ret;
 }
 
-void Rational::print() const {
-  Rcout << str() << "\n";
-}
 

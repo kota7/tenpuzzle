@@ -63,7 +63,9 @@ test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
     # normalize the strings for comparison
     a1 <- sort(gsub(' ', '', a1))
     a2 <- sort(gsub(' ', '', a2))
-    msg <- sprintf("IN: ([%s], %d)", paste0(x, collapse=','), tgt)
+    d <- setdiff(a2, a1)
+    msg <- sprintf("IN: ([%s], %d): diff {%s}",
+                   paste0(x, collapse=','), tgt, paste0(d, collapse="; "))
     expect_equal(a1, a2, info=msg)
   }
 
