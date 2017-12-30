@@ -6,8 +6,8 @@ library(magrittr)
 test_that("solutions are correct", {
   # test automation helpers
   helper <- function(x, tgt) {
-    inner <- function(x, tgt, findone, useup) {
-      answers <- tenpuzzle(x, tgt, findone, useup)
+    inner <- function(x, tgt, findone, useup, intonly, positive) {
+      answers <- tenpuzzle(x, tgt, findone, useup, intonly, positive)
       if (length(answers) > 0) {
         values  <- sapply(answers, function(a) eval(parse(text=a))) %>% unname()
         msg <- sprintf("IN: ([%s], %d, %d, %d)",
@@ -16,10 +16,15 @@ test_that("solutions are correct", {
       }
     }
 
-    inner(x, tgt, TRUE, TRUE)
-    inner(x, tgt, TRUE, FALSE)
-    inner(x, tgt, FALSE, TRUE)
-    inner(x, tgt, FALSE, FALSE)
+    for (a1 in c(TRUE)) {  # findone is tested in another test
+      for (a2 in c(TRUE, FALSE)) {
+        for (a3 in c(TRUE, FALSE)) {
+          for (a4 in c(TRUE, FALSE)) {
+            inner(x, tgt, a1, a2, a3, a3)
+          }
+        }
+      }
+    }
   }
 
   # basic cases
@@ -58,7 +63,8 @@ test_that("solutions are correct", {
 test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
 
   helper <- function(x, tgt) {
-    a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
+    a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE,
+                    intonly=FALSE, positive=FALSE)
     a2 <- tenpuzzle_bf(x, tgt)
     # normalize the strings for comparison
     a1 <- sort(gsub(' ', '', a1))

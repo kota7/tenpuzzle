@@ -28,7 +28,7 @@ countdown <- function(x, tgt, findone=TRUE,
     SolveCountdownInt(x, tgt, findone, useup, positive) %>%
       clean_expr() %>% unique()
   } else {
-    SolveCountdown(x, tgt, findont, useup, positive) %>%
+    SolveCountdown(x, tgt, findone, useup, positive) %>%
       clean_expr() %>% unique()
   }
 
