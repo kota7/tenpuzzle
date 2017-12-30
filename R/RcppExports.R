@@ -25,3 +25,11 @@ test_reduction <- function() {
     invisible(.Call('_tenpuzzle_test_reduction', PACKAGE = 'tenpuzzle'))
 }
 
+test_hash <- function() {
+    invisible(.Call('_tenpuzzle_test_hash', PACKAGE = 'tenpuzzle'))
+}
+
+test_withexpr <- function() {
+    invisible(.Call('_tenpuzzle_test_withexpr', PACKAGE = 'tenpuzzle'))
+}
+
