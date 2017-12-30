@@ -2,7 +2,11 @@
 
 export(clean_expr)
 export(tenpuzzle)
+export(tenpuzzle_app)
+export(tenpuzzle_app_srv)
+export(tenpuzzle_app_ui)
 export(tenpuzzle_bf)
+import(shiny)
 importFrom(Rcpp,sourceCpp)
 importFrom(magrittr,"%>%")
 useDynLib(tenpuzzle)

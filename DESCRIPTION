@@ -12,6 +12,7 @@ Imports:
     combinat,
     dplyr,
     magrittr,
+    shiny,
     Rcpp
 Encoding: UTF-8
 LazyData: true
