@@ -6,6 +6,9 @@
 #'                otherwise search exhaustively
 #' @param useup   if \code{TRUE}, requires all numbers are used;
 #'                otherwise some number may remain unused
+#' @param intonly if \code{TRUE}, requires all numbers are integers in
+#'                every step of calculation; otherwise fractions may appear
+#'                in interim steps
 #'
 #' @return a character vector of answers
 #' @export
@@ -15,8 +18,15 @@
 #' tenpuzzle(c(1, 1, 9, 9), 10, findone=FALSE)
 #' tenpuzzle(c(1, 1, 9, 9), 10, useup=FALSE)
 #'
-tenpuzzle <- function(x, tgt=10, findone=TRUE, useup=TRUE) {
-  ret <- SolveTenPuzzle(x, tgt, findone, useup) %>% clean_expr() %>% unique()
+#' # integer only
+#' tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=FALSE)
+#' tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=TRUE)
+tenpuzzle <- function(x, tgt=10, findone=TRUE, useup=TRUE, intonly=FALSE) {
+  ret <- if (intonly) {
+    SolveTenPuzzleInt(x, tgt, findone, useup) %>% clean_expr() %>% unique()
+  } else {
+    SolveTenPuzzle(x, tgt, findone, useup) %>% clean_expr() %>% unique()
+  }
   ret
 }
 

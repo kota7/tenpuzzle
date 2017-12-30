@@ -5,6 +5,10 @@ SolveTenPuzzle <- function(x, tgt, findone, useup) {
     .Call('_tenpuzzle_SolveTenPuzzle', PACKAGE = 'tenpuzzle', x, tgt, findone, useup)
 }
 
+SolveTenPuzzleInt <- function(x, tgt, findone, useup) {
+    .Call('_tenpuzzle_SolveTenPuzzleInt', PACKAGE = 'tenpuzzle', x, tgt, findone, useup)
+}
+
 CleanParen <- function(expr) {
     .Call('_tenpuzzle_CleanParen', PACKAGE = 'tenpuzzle', expr)
 }
@@ -19,5 +23,13 @@ test_rational <- function() {
 
 test_reduction <- function() {
     invisible(.Call('_tenpuzzle_test_reduction', PACKAGE = 'tenpuzzle'))
+}
+
+test_hash <- function() {
+    invisible(.Call('_tenpuzzle_test_hash', PACKAGE = 'tenpuzzle'))
+}
+
+test_withexpr <- function() {
+    invisible(.Call('_tenpuzzle_test_withexpr', PACKAGE = 'tenpuzzle'))
 }
 
