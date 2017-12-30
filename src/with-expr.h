@@ -32,6 +32,7 @@ struct NumberWithExpr
     expr = toStr(data);
   }
 
+
   // four basic math operations
   NumberWithExpr operator +(const NumberWithExpr &y) const {
     NumberWithExpr ret(data + y.data);
@@ -59,6 +60,14 @@ struct NumberWithExpr
   bool operator ==(const NumberWithExpr &y) const { return data == y.data; };
   bool operator >(const NumberWithExpr &y)  const { return y.data < data; }
   bool operator !=(const NumberWithExpr &y) const { return !(data == y.data); }
+
+
+  // ostream
+  friend ostream& operator<< (ostream& stream, const NumberWithExpr<T>& x) {
+    stream << x.data;
+    return stream;
+  }
+
 };
 
 

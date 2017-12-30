@@ -97,6 +97,9 @@ void test_rational() {
   Rcout << (z > w) << "\n";
   Rcout << (w > z) << "\n";
 
+  Rcout << "test for zero\n";
+  Rcout << (Rational(0) == Rational(0)) << "\n";
+
   Rcout << "multiset for Rational\n";
   multiset<Rational> s;
   s.insert(Rational(7, 21, false));
@@ -116,6 +119,10 @@ void test_rational() {
   for (multiset<Rational>::iterator i = s.begin(); i != s.end(); ++i) {
     i -> print();
   }
+
+
+  Rcout << "* test for << stream\n";
+  Rcout << Rational(7, 3) << " " << Rational(5) << " " << Rational(-1, 4) << "\n";
 }
 
 
@@ -232,7 +239,16 @@ void test_hash() {
     Rcout << i->data << "\t: " << i->expr << '\n';
   }
 
+}
 
+
+// [[Rcpp::export]]
+void test_withexpr() {
+  Rcout << "int\n";
+  Rcout << NumberWithExpr<int>(5) << '\t' << NumberWithExpr<int>(-9) << "\n";
+  Rcout << "rational\n";
+  Rcout << NumberWithExpr<Rational>(Rational(5, 1)) << '\t' <<
+    NumberWithExpr<Rational>(Rational(-9, 5)) << "\n";
 }
 
 
@@ -242,4 +258,5 @@ void test_hash() {
  tenpuzzle:::test_rational()
  tenpuzzle:::test_reduction()
  tenpuzzle:::test_hash()
+ tenpuzzle:::test_withexpr()
 */

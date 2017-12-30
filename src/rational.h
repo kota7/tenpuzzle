@@ -1,6 +1,7 @@
 #ifndef RATIONALHEADERDEF
 #define RATIONALHEADERDEF
 
+#include <iostream>
 #include <string>
 #include <functional>
 #include <Rcpp.h>
@@ -36,8 +37,13 @@ struct Rational
   bool operator >(const Rational &r) const  { return (r < *this); }
   bool operator !=(const Rational &r) const { return !(*this == r); }
 
-  void print() const;
+  // printing
   string str() const;
+  void print() const { Rcout << str() << "\n"; };
+  friend ostream& operator<< (ostream& stream, const Rational& r) {
+    stream << r.str();
+    return stream;
+  }
 
 };
 
