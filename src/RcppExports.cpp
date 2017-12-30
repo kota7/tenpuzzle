@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // SolveTenPuzzle
-CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useup);
-RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP) {
+CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
+RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -15,13 +15,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
     Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
     Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useup));
+    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
+    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useup, positive));
     return rcpp_result_gen;
 END_RCPP
 }
 // SolveTenPuzzleInt
-CharacterVector SolveTenPuzzleInt(IntegerVector x, int tgt, bool findone, bool useup);
-RcppExport SEXP _tenpuzzle_SolveTenPuzzleInt(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP) {
+CharacterVector SolveTenPuzzleInt(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
+RcppExport SEXP _tenpuzzle_SolveTenPuzzleInt(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,7 +30,38 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
     Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
     Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzleInt(x, tgt, findone, useup));
+    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
+    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzleInt(x, tgt, findone, useup, positive));
+    return rcpp_result_gen;
+END_RCPP
+}
+// SolveCountdown
+CharacterVector SolveCountdown(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
+RcppExport SEXP _tenpuzzle_SolveCountdown(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
+    Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
+    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
+    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
+    rcpp_result_gen = Rcpp::wrap(SolveCountdown(x, tgt, findone, useup, positive));
+    return rcpp_result_gen;
+END_RCPP
+}
+// SolveCountdownInt
+CharacterVector SolveCountdownInt(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
+RcppExport SEXP _tenpuzzle_SolveCountdownInt(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
+    Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
+    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
+    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
+    rcpp_result_gen = Rcpp::wrap(SolveCountdownInt(x, tgt, findone, useup, positive));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -91,8 +123,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 4},
-    {"_tenpuzzle_SolveTenPuzzleInt", (DL_FUNC) &_tenpuzzle_SolveTenPuzzleInt, 4},
+    {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 5},
+    {"_tenpuzzle_SolveTenPuzzleInt", (DL_FUNC) &_tenpuzzle_SolveTenPuzzleInt, 5},
+    {"_tenpuzzle_SolveCountdown", (DL_FUNC) &_tenpuzzle_SolveCountdown, 5},
+    {"_tenpuzzle_SolveCountdownInt", (DL_FUNC) &_tenpuzzle_SolveCountdownInt, 5},
     {"_tenpuzzle_CleanParen", (DL_FUNC) &_tenpuzzle_CleanParen, 1},
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
     {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},

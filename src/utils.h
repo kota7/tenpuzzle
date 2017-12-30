@@ -11,6 +11,7 @@ using namespace Rcpp;
 int gcd(int a, int b);
 string intToStr(int x);
 string toStr(const int &x);
+bool isPositive(const int &x);
 
 
 #endif

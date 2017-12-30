@@ -43,3 +43,6 @@ string toStr(const int &x) {
   return intToStr(x);
 }
 
+bool isPositive(const int &x) {
+  return x > 0;
+}

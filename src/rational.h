@@ -62,6 +62,10 @@ struct Rational
     return ret;
   }
 
+  friend bool isPositive(const Rational &x) {
+    return x > Rational(0);
+  }
+
 };
 
 
