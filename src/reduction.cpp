@@ -21,6 +21,17 @@ ReductionIterator<T>::ReductionIterator(const multiset<T> x) {
   i = nums.begin();
   j = nums.begin();
   op = ops.begin();
+  positiveOnly = false;
+  if (!isValid()) increment();
+}
+
+template <class T>
+ReductionIterator<T>::ReductionIterator(const multiset<T> x, const bool positive) {
+  nums = x;
+  i = nums.begin();
+  j = nums.begin();
+  op = ops.begin();
+  positiveOnly = positive;
   if (!isValid()) increment();
 }
 
@@ -80,6 +91,9 @@ bool ReductionIterator<int>::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
+  // positive requirement
+  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
+
   // if op is division, then
   //   j must not be zero and
   //   i mof j must equal zero
@@ -95,6 +109,9 @@ bool ReductionIterator<Rational>::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
+  // positive requirement
+  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
+
   // if op is division, j must not be zero
   if ((*op == '/') && (j->den == 0)) return false;
 
@@ -105,6 +122,9 @@ template <>
 bool ReductionIterator< NumberWithExpr<int> >::isValid() {
   // i must not be equal to j
   if (i == j) return false;
+
+  // positive requirement
+  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
 
   // if op is division, then
   //   j must not be zero and
@@ -120,6 +140,9 @@ template <>
 bool ReductionIterator< NumberWithExpr<Rational> >::isValid() {
   // i must not be equal to j
   if (i == j) return false;
+
+  // positive requirement
+  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
 
   // if op is division, j must not be zero
   if ((*op == '/') && (j->data.den == 0)) return false;

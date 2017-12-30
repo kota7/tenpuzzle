@@ -123,6 +123,12 @@ void test_rational() {
 
   Rcout << "* test for << stream\n";
   Rcout << Rational(7, 3) << " " << Rational(5) << " " << Rational(-1, 4) << "\n";
+
+  Rcout << "* test for abs\n";
+  Rcout << "abs(" << Rational(-3, 2) << ") = " << abs(Rational(-3, 2)) << "\n";
+  Rcout << "abs(" << Rational(-6, 15) << ") = " << abs(Rational(-6, 15)) << "\n";
+  Rcout << "abs(" << Rational(6, 15) << ") = " << abs(Rational(6, 15)) << "\n";
+
 }
 
 
@@ -249,6 +255,21 @@ void test_withexpr() {
   Rcout << "rational\n";
   Rcout << NumberWithExpr<Rational>(Rational(5, 1)) << '\t' <<
     NumberWithExpr<Rational>(Rational(-9, 5)) << "\n";
+
+  Rcout << "* test for abs\n";
+  NumberWithExpr<Rational> r1(Rational(-3, 2));
+  Rcout << "abs(" << r1 << ") = " << abs(r1).expr << " = " << abs(r1) << "\n";
+  NumberWithExpr<Rational> r2(Rational(15, 9));
+  Rcout << "abs(" << r2 << ") = " << abs(r2).expr << " = " << abs(r2) << "\n";
+  NumberWithExpr<Rational> r3(Rational(0));
+  Rcout << "abs(" << r3 << ") = " << abs(r3).expr << " = " << abs(r3) << "\n";
+
+  NumberWithExpr<int> n1(-3);
+  Rcout << "abs(" << n1 << ") = " << abs(n1).expr << " = " << abs(n1) << "\n";
+  NumberWithExpr<int> n2(17);
+  Rcout << "abs(" << n2 << ") = " << abs(n2).expr << " = " << abs(n2) << "\n";
+  NumberWithExpr<int> n3(0);
+  Rcout << "abs(" << n3 << ") = " << abs(n3).expr << " = " << abs(n3) << "\n";
 }
 
 
