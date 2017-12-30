@@ -25,9 +25,14 @@ struct Rational
 
   void simplify();  // simplify the denominator and numerator as possible
 
+  // unary minus operator
+  Rational operator -() const {
+    if (den == 0) return *this;
+    return Rational(den, num, !neg);
+  }
   // four basic math operations
   Rational operator +(const Rational &r) const;
-  Rational operator -(const Rational &r) const;
+  Rational operator -(const Rational &r) const { return this->operator+(-r); }
   Rational operator *(const Rational &r) const;
   Rational operator /(const Rational &r) const;
 
@@ -43,6 +48,22 @@ struct Rational
   friend ostream& operator<< (ostream& stream, const Rational& r) {
     stream << r.str();
     return stream;
+  }
+
+
+  friend string toStr(const Rational &x) {
+    return x.str();
+  }
+
+  friend Rational abs(const Rational &x) {
+    if (!x.neg || x.den==0) return x;
+    Rational ret = x;
+    ret.neg = !ret.neg;
+    return ret;
+  }
+
+  friend bool isPositive(const Rational &x) {
+    return x > Rational(0);
   }
 
 };
