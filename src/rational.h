@@ -66,6 +66,12 @@ struct Rational
     return x > Rational(0);
   }
 
+  friend double toDouble(const Rational &x) {
+    double ret = (double)x.den / (double)x.num;
+    if (x.neg) ret = -ret;
+    return ret;
+  }
+
 };
 
 
@@ -97,4 +103,8 @@ namespace std
   };
 }
 
+
+
+
+Rational strToRational(const string &s);
 #endif

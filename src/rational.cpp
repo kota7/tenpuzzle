@@ -118,3 +118,52 @@ string Rational::str() const {
 }
 
 
+
+Rational strToRational(const string &s) {
+  // remove spaces
+  string x = "";
+  for (string::const_iterator p = s.begin(); p != s.end(); ++p) {
+    if (*p != ' ') x += *p;
+  }
+
+  // a quick validity check
+  if (x.size() == 0) stop("empty string cannot be converted to rational");
+
+  // find sign
+  bool ne = false;
+  string::iterator p = x.begin();
+  if (*p == '-') {
+    ne = true;
+    ++p;
+  } else if (*p == '+') {
+    ne = false;
+    ++p;
+  }
+
+  // denominator
+  string den_str = "";
+  bool hasNum = false;
+  while (p != x.end()) {
+    if (*p == '/') {
+      hasNum = true;
+      ++p;
+      break;
+    } else {
+      den_str += *p;
+      ++p;
+    }
+  }
+  if (den_str.size() == 0) stop("empty denominator");
+  size_t de = stoi(den_str);
+  // numerator
+  size_t nu = 1;
+  if (hasNum) {
+    string num_str(p, x.end());
+    if (num_str.size() == 0) stop("empty numerator");
+    nu = stoi(num_str);
+  }
+  Rational ret(de, nu, ne);
+  return ret;
+}
+
+
