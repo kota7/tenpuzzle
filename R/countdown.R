@@ -9,9 +9,10 @@
 #' @param intonly  if \code{TRUE}, requires all numbers are integers in
 #'                 every step of calculation; otherwise fractions may appear
 #'                 in interim steps
-#' @param positive if \code{TRUE}, requires all numbers are positive in
-#'                 every step of calculation; otherwise nonnegative
-#'                 numbers may appear in interim steps
+#' @param nonnegative if \code{TRUE}, requires all numbers are nonnegative in
+#'                    every step of calculation
+#' @param nonzero     if \code{TRUE}, requires all numbers are not zero in
+#'                    every step of calculation
 #'
 #' @return a list of character vector of best possible answers and the values.
 #'         if \code{findone} is selected and an exact match is found, then
@@ -22,13 +23,13 @@
 #' countdown(c(75, 50, 2, 3, 8, 7), 812)
 #' countdown(c(10, 5, 1, 7, 12, 62), 130)
 #' countdown(c(8, 4, 3, 8, 87, 12), 724)
-countdown <- function(x, tgt, findone=TRUE,
-                      useup=FALSE, intonly=TRUE, positive=TRUE) {
+countdown <- function(x, tgt, findone=TRUE, useup=FALSE,
+                      intonly=TRUE, nonnegative=TRUE, nonzero=TRUE) {
   expr <- if (intonly) {
-    SolveCountdownInt(x, tgt, findone, useup, positive) %>%
+    SolveCountdownInt(x, tgt, findone, useup, nonnegative, nonzero) %>%
       clean_expr() %>% unique()
   } else {
-    SolveCountdown(x, tgt, findone, useup, positive) %>%
+    SolveCountdown(x, tgt, findone, useup, nonnegative, nonzero) %>%
       clean_expr() %>% unique()
   }
 

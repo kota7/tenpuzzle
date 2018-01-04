@@ -5,7 +5,7 @@
 \title{Ten puzzle solver}
 \usage{
 tenpuzzle(x, tgt = 10, findone = TRUE, useup = TRUE, intonly = FALSE,
-  positive = FALSE)
+  nonnegative = FALSE, nonzero = FALSE)
 }
 \arguments{
 \item{x}{an integer vector}
@@ -19,12 +19,13 @@ otherwise search exhaustively}
 otherwise some number may remain unused}
 
 \item{intonly}{if \code{TRUE}, requires all numbers are integers in
-every step of calculation; otherwise fractions may appear
-in interim steps}
+every step of calculation}
 
-\item{positive}{if \code{TRUE}, requires all numbers are positive in
-every step of calculation; otherwise nonnegative
-numbers may appear in interim steps}
+\item{nonnegative}{if \code{TRUE}, requires all numbers are nonnegative in
+every step of calculation}
+
+\item{nonzero}{if \code{TRUE}, requires all numbers are not zero in
+every step of calculation}
 }
 \value{
 a character vector of answers

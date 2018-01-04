@@ -5,15 +5,15 @@ library(magrittr)
 
 test_that("countdown solvers are correct", {
   helper <- function(x, tgt) {
-    inner <- function(x, tgt, findone, useup, intonly, positive) {
-      a1 <- countdown(x, tgt, findone, useup, intonly, positive)
-      a2 <- tenpuzzle(x, tgt, findone, useup, intonly, positive)
+    inner <- function(x, tgt, findone, useup, intonly, nonnegative, nonzero) {
+      a1 <- countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero)
+      a2 <- tenpuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero)
 
       # if a2 is non-empty, then a1's value matches target exactly
-      # if a2 is empty, then a1' values does not match the target exactly
-      msg <- sprintf("IN: [%s], %f, %d, %d, %d, %d | matched: %d",
+      # if a2 is empty, then a1's values does not match the target exactly
+      msg <- sprintf("IN: [%s], %f, %d, %d, %d, %d, %d | matched: %d",
                      paste0(x, collapse=','), tgt,
-                     findone, useup, intonly, positive, length(a2)>0)
+                     findone, useup, intonly, nonnegative, nonzero, length(a2)>0)
       if (length(a2) == 0) {
         expect_true(all(a1$value != tgt), info=msg)
       } else {
@@ -25,7 +25,9 @@ test_that("countdown solvers are correct", {
       for (a2 in c(TRUE, FALSE)) {
         for (a3 in c(TRUE, FALSE)) {
           for (a4 in c(TRUE, FALSE)) {
-            inner(x, tgt, a1, a2, a3, a3)
+            for (a5 in c(TRUE, FALSE)) {
+              inner(x, tgt, a1, a2, a3, a4, a5)
+            }
           }
         }
       }
