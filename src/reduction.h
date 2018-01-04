@@ -14,7 +14,8 @@ template <class T>
 struct ReductionIterator {
   // iterator for possible reduction of a sequence of numbers
   multiset<T> nums;
-  bool positiveOnly;    // requires all numbers are positive
+  bool nonnegativeOnly;    // requires all numbers are positive
+  bool nonzeroOnly;        // requires all numbers are positive
   //static const vector<char> ops;
   static const string ops;
 
@@ -24,7 +25,7 @@ struct ReductionIterator {
   string::const_iterator op;
 
   ReductionIterator(const multiset<T> x);
-  ReductionIterator(const multiset<T> x, bool positive);
+  ReductionIterator(const multiset<T> x, bool nonnegative, bool nonzero);
 
   multiset<T> next();
   bool hasNext();

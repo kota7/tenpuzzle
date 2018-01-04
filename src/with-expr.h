@@ -58,11 +58,21 @@ struct NumberWithExpr
   }
 
   // equality and inequality operation
-  bool operator <(const NumberWithExpr &y)  const { return data < y.data; }
-  bool operator ==(const NumberWithExpr &y) const { return data == y.data; }
-  bool operator >(const NumberWithExpr &y)  const { return y < *this; }
-  bool operator !=(const NumberWithExpr &y) const { return !(*this == y); }
+  bool operator <(const NumberWithExpr<T> &y)  const { return data < y.data; }
+  bool operator ==(const NumberWithExpr<T> &y) const { return data == y.data; }
+  bool operator >(const NumberWithExpr<T> &y)  const { return y < *this; }
+  bool operator !=(const NumberWithExpr<T> &y) const { return !(*this == y); }
 
+
+  friend bool isPositive(const NumberWithExpr<T> &x) {
+    return isPositive(x.data);
+  }
+  friend bool isNegative(const NumberWithExpr<T> &x) {
+    return isNegative(x.data);
+  }
+  friend bool isZero(const NumberWithExpr<T> &x) {
+    return isZero(x.data);
+  }
 
   // ostream
   friend ostream& operator<< (ostream& stream, const NumberWithExpr<T>& x) {

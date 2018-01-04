@@ -2,8 +2,10 @@
 
 export(clean_expr)
 export(countdown)
+export(eval_expr)
 export(tenpuzzle)
 export(tenpuzzle_bf)
+export(to_postfix)
 importFrom(Rcpp,sourceCpp)
 importFrom(magrittr,"%>%")
 useDynLib(tenpuzzle)
