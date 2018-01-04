@@ -7,7 +7,7 @@ test_that("countdown solver is correct", {
   helper <- function(x, tgt) {
     inner <- function(x, tgt, findone, useup, intonly, nonnegative, nonzero) {
 
-      # ilegal input should cause error
+      # illegal input should cause error
       if (nonnegative && any(x < 0)) {
         expect_error(countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero))
         return()
