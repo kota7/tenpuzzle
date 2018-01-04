@@ -5,7 +5,7 @@
 \title{Solve Countdown's Number Quiz}
 \usage{
 countdown(x, tgt, findone = TRUE, useup = FALSE, intonly = TRUE,
-  positive = TRUE)
+  nonnegative = TRUE, nonzero = TRUE)
 }
 \arguments{
 \item{x}{an integer vector}
@@ -22,15 +22,21 @@ otherwise some number may remain unused}
 every step of calculation; otherwise fractions may appear
 in interim steps}
 
-\item{positive}{if \code{TRUE}, requires all numbers are positive in
-every step of calculation; otherwise nonnegative
-numbers may appear in interim steps}
+\item{nonnegative}{if \code{TRUE}, requires all numbers are nonnegative in
+every step of calculation}
+
+\item{nonzero}{if \code{TRUE}, requires all numbers are not zero in
+every step of calculation}
 }
 \value{
-a list of character vector of best possible answers and the values.
-        if \code{findone} is selected and an exact match is found, then
-        only one answer is returned.  If no exact match is found, then
-        all closest possible solutions are returned.
+a list of two elements:
+\itemize{
+\item{\code{formula}: character vector of mathematical expressions}
+\item{\code{value}  : the corresponding values}
+}
+if \code{findone} is selected and an exact match is found, then
+only one answer is returned.  If no exact match is found, then
+all closest possible solutions are returned.
 }
 \description{
 Solve Countdown's Number Quiz

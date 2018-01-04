@@ -7,11 +7,11 @@
 #' @param useup    if \code{TRUE}, requires all numbers are used;
 #'                 otherwise some number may remain unused
 #' @param intonly  if \code{TRUE}, requires all numbers are integers in
-#'                 every step of calculation; otherwise fractions may appear
-#'                 in interim steps
-#' @param positive if \code{TRUE}, requires all numbers are positive in
-#'                 every step of calculation; otherwise nonnegative
-#'                 numbers may appear in interim steps
+#'                 every step of calculation
+#' @param nonnegative if \code{TRUE}, requires all numbers are nonnegative in
+#'                    every step of calculation
+#' @param nonzero     if \code{TRUE}, requires all numbers are not zero in
+#'                    every step of calculation
 #'
 #' @return a character vector of answers
 #' @export
@@ -25,15 +25,18 @@
 #' tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=FALSE)
 #' tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=TRUE)
 tenpuzzle <- function(x, tgt=10, findone=TRUE, useup=TRUE,
-                      intonly=FALSE, positive=FALSE) {
-  ret <- if (intonly) {
-    SolveTenPuzzleInt(x, tgt, findone, useup, positive) %>%
-      clean_expr() %>% unique()
-  } else {
-    SolveTenPuzzle(x, tgt, findone, useup, positive) %>%
-      clean_expr() %>% unique()
-  }
-  ret
+                      intonly=FALSE, nonnegative=FALSE, nonzero=FALSE) {
+  if (length(x) == 0) stop("empty input")
+
+  ans <- SolveTenPuzzle(x, tgt, findone, useup,
+                        intonly, nonnegative, nonzero) %>%
+    clean_expr() %>% unique()
+  # solver returns the `best` possible answer, hence must not be empty
+  stopifnot(length(ans) > 0)
+  # check the value and if the result is close enough to the target,
+  # then return it; otherwise there is no answer
+  v <- EvaluateExpr(ans[1])$value
+  if (abs(v - tgt) < 1e-5) ans else character(0)
 }
 
 
