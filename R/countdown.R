@@ -14,10 +14,14 @@
 #' @param nonzero     if \code{TRUE}, requires all numbers are not zero in
 #'                    every step of calculation
 #'
-#' @return a list of character vector of best possible answers and the values.
-#'         if \code{findone} is selected and an exact match is found, then
-#'         only one answer is returned.  If no exact match is found, then
-#'         all closest possible solutions are returned.
+#' @return a list of two elements:
+#' \itemize{
+#' \item{\code{formula}: character vector of mathematical expressions}
+#' \item{\code{value}  : the corresponding values}
+#' }
+#' if \code{findone} is selected and an exact match is found, then
+#' only one answer is returned.  If no exact match is found, then
+#' all closest possible solutions are returned.
 #' @export
 #' @examples
 #' countdown(c(75, 50, 2, 3, 8, 7), 812)

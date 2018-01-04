@@ -29,10 +29,14 @@ every step of calculation}
 every step of calculation}
 }
 \value{
-a list of character vector of best possible answers and the values.
-        if \code{findone} is selected and an exact match is found, then
-        only one answer is returned.  If no exact match is found, then
-        all closest possible solutions are returned.
+a list of two elements:
+\itemize{
+\item{\code{formula}: character vector of mathematical expressions}
+\item{\code{value}  : the corresponding values}
+}
+if \code{findone} is selected and an exact match is found, then
+only one answer is returned.  If no exact match is found, then
+all closest possible solutions are returned.
 }
 \description{
 Solve Countdown's Number Quiz

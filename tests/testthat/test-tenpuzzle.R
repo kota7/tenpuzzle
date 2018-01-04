@@ -3,7 +3,7 @@ library(tenpuzzle)
 library(magrittr)
 
 
-test_that("solutions are correct", {
+test_that("tenpuzzle solver is correct", {
   # test automation helpers
   helper <- function(x, tgt) {
     inner <- function(x, tgt, findone, useup, intonly, nonnegative, nonzero) {
@@ -25,16 +25,15 @@ test_that("solutions are correct", {
                        paste0(x, collapse=','), tgt,
                        findone, useup, intonly, nonnegative, nonzero)
         expect_equal(values, rep(tgt, length(answers)), info=msg)
-
       }
       # test for options
       msg <- sprintf("IN: ([%s], %d, %d, %d, %d, %d, %d)",
                      paste0(x, collapse=','), tgt,
                      findone, useup, intonly, nonnegative, nonzero)
       res <- eval_expr(answers)
-      if (intonly)     expect_true(all(res$intonly), info=msg)
+      if (intonly)     expect_true(all(res$intonly),     info=msg)
       if (nonnegative) expect_true(all(res$nonnegative), info=msg)
-      if (nonzero)     expect_true(all(res$nonzero), info=msg)
+      if (nonzero)     expect_true(all(res$nonzero),     info=msg)
     }
 
     for (a1 in c(TRUE)) {  # findone is tested in another test

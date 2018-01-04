@@ -2,18 +2,18 @@
 % Please edit documentation in R/eval-expr.R
 \name{eval_expr}
 \alias{eval_expr}
-\title{Convert mathematical expression into reverse polish notation}
+\title{Evaluate Mathematical Expressions}
 \usage{
 eval_expr(expr, valueonly = FALSE)
 }
 \arguments{
+\item{expr}{character vector of mathematical expression}
+
 \item{valueonly}{if \code{TRUE} only values are returned; otherwise
 more information is returned}
-
-\item{x}{character vector of mathematical expression}
 }
 \value{
-if \code{valueonly} is set, then a numeric vector of
+if \code{valueonly} is \code{TRUE}, then a numeric vector of
 calculation outcomes; otherwise, a list of four vectors of
 the same size as the input:
 \itemize{
@@ -27,7 +27,7 @@ negative numbers do not appear in the intemediate steps}
 }
 }
 \description{
-Convert mathematical expression into reverse polish notation
+Evaluate Mathematical Expressions
 }
 \examples{
 eval_expr(c("1 + 2 + 3", "(4 - 1)*(-3 + 7) / 5", "(2*3 - 6)*(4 + 1/5)"))

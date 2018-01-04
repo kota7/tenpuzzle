@@ -1,9 +1,9 @@
-#' Convert mathematical expression into reverse polish notation
+#' Evaluate Mathematical Expressions
 #'
-#' @param x character vector of mathematical expression
+#' @param expr character vector of mathematical expression
 #' @param valueonly if \code{TRUE} only values are returned; otherwise
 #' more information is returned
-#' @return if \code{valueonly} is set, then a numeric vector of
+#' @return if \code{valueonly} is \code{TRUE}, then a numeric vector of
 #' calculation outcomes; otherwise, a list of four vectors of
 #' the same size as the input:
 #' \itemize{
