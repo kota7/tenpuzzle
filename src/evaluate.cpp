@@ -13,7 +13,8 @@ CharacterVector to_postfix(CharacterVector x) {
   return ret;
 }
 
-List eval_expr(CharacterVector x) {
+
+List EvaluateExpr(CharacterVector x) {
   NumericVector value(x.size());
   LogicalVector intonly(x.size());
   LogicalVector nonzero(x.size());

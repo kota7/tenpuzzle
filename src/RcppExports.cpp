@@ -87,14 +87,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// eval_expr
-List eval_expr(CharacterVector x);
-RcppExport SEXP _tenpuzzle_eval_expr(SEXP xSEXP) {
+// EvaluateExpr
+List EvaluateExpr(CharacterVector x);
+RcppExport SEXP _tenpuzzle_EvaluateExpr(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(eval_expr(x));
+    rcpp_result_gen = Rcpp::wrap(EvaluateExpr(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -151,7 +151,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_tenpuzzle_SolveCountdownInt", (DL_FUNC) &_tenpuzzle_SolveCountdownInt, 5},
     {"_tenpuzzle_CleanParen", (DL_FUNC) &_tenpuzzle_CleanParen, 1},
     {"_tenpuzzle_to_postfix", (DL_FUNC) &_tenpuzzle_to_postfix, 1},
-    {"_tenpuzzle_eval_expr", (DL_FUNC) &_tenpuzzle_eval_expr, 1},
+    {"_tenpuzzle_EvaluateExpr", (DL_FUNC) &_tenpuzzle_EvaluateExpr, 1},
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
     {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},
     {"_tenpuzzle_test_reduction", (DL_FUNC) &_tenpuzzle_test_reduction, 0},

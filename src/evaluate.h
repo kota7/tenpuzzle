@@ -19,15 +19,8 @@ using namespace Rcpp;
 CharacterVector to_postfix(CharacterVector x);
 
 
-//' Convert mathematical expression into reverse polish notation
-//'
-//' @param x character vector of mathematical expression
-//' @return a list
-//' @examples
-//' eval_expr(c("1 + 2 + 3", "(4 - 1)*(-3 + 7) / 5", "(2*3 - 6)*(4 + 1/5)"))
-//' @export
 // [[Rcpp::export]]
-List eval_expr(CharacterVector x);
+List EvaluateExpr(CharacterVector x);
 
 
 string ToPostfixSingle(const string &expr);
