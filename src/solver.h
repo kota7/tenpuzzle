@@ -30,14 +30,15 @@ struct TenSolver {
 
   // returns true if some answer is found
   bool solve(const multiset< NumberWithExpr<T> > &x,
-             const bool &findone, const bool &useup, const bool &positive);
+             const bool &findone, const bool &useup,
+             const bool &nonnegative, const bool &nonzero);
 };
 
 
 template <class T>
 bool TenSolver<T>::solve(const multiset< NumberWithExpr<T> > &x,
                          const bool &findone, const bool &useup,
-                         const bool &positive) {
+                         const bool &nonnegative, const bool &nonzero) {
   bool ret = false;
 
   if (!useup || x.size() == 1) {
@@ -65,7 +66,7 @@ bool TenSolver<T>::solve(const multiset< NumberWithExpr<T> > &x,
   }
   if (x.size() == 1) return ret;
 
-  ReductionIterator< NumberWithExpr<T> > iter(x, positive);
+  ReductionIterator< NumberWithExpr<T> > iter(x, nonnegative, nonzero);
   while (iter.hasNext()) {
     multiset< NumberWithExpr<T> > y = iter.next();
     // skip if we already know y gets no answer
@@ -75,7 +76,7 @@ bool TenSolver<T>::solve(const multiset< NumberWithExpr<T> > &x,
     // this record is used for tree pruning;
     // to save memory, currently sets with two elements or smaller
     // are not recorded
-    bool found = solve(y, findone, useup, positive);
+    bool found = solve(y, findone, useup, nonnegative, nonzero);
     if (!found && y.size() > 2) {
       /*
       Rcout << "no ans: [";

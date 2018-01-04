@@ -9,29 +9,33 @@
 #' @param intonly  if \code{TRUE}, requires all numbers are integers in
 #'                 every step of calculation; otherwise fractions may appear
 #'                 in interim steps
-#' @param positive if \code{TRUE}, requires all numbers are positive in
-#'                 every step of calculation; otherwise nonnegative
-#'                 numbers may appear in interim steps
+#' @param nonnegative if \code{TRUE}, requires all numbers are nonnegative in
+#'                    every step of calculation
+#' @param nonzero     if \code{TRUE}, requires all numbers are not zero in
+#'                    every step of calculation
 #'
-#' @return a list of character vector of best possible answers and the values.
-#'         if \code{findone} is selected and an exact match is found, then
-#'         only one answer is returned.  If no exact match is found, then
-#'         all closest possible solutions are returned.
+#' @return a list of two elements:
+#' \itemize{
+#' \item{\code{formula}: character vector of mathematical expressions}
+#' \item{\code{value}  : the corresponding values}
+#' }
+#' if \code{findone} is selected and an exact match is found, then
+#' only one answer is returned.  If no exact match is found, then
+#' all closest possible solutions are returned.
 #' @export
 #' @examples
 #' countdown(c(75, 50, 2, 3, 8, 7), 812)
 #' countdown(c(10, 5, 1, 7, 12, 62), 130)
 #' countdown(c(8, 4, 3, 8, 87, 12), 724)
-countdown <- function(x, tgt, findone=TRUE,
-                      useup=FALSE, intonly=TRUE, positive=TRUE) {
-  expr <- if (intonly) {
-    SolveCountdownInt(x, tgt, findone, useup, positive) %>%
-      clean_expr() %>% unique()
-  } else {
-    SolveCountdown(x, tgt, findone, useup, positive) %>%
-      clean_expr() %>% unique()
-  }
+countdown <- function(x, tgt, findone=TRUE, useup=FALSE,
+                      intonly=TRUE, nonnegative=TRUE, nonzero=TRUE) {
+  if (length(x) == 0) stop("empty input")
 
-  values <- sapply(expr, function(a) eval(parse(text=a))) %>% unname()
+  expr <- SolveTenPuzzle(x, tgt, findone, useup,
+                         intonly, nonnegative, nonzero) %>%
+    clean_expr() %>% unique()
+  stopifnot(length(expr) > 0)
+
+  values <- EvaluateExpr(expr)$value
   list(formula=expr, value=values)
 }

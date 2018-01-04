@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // SolveTenPuzzle
-CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
-RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
+CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useup, bool intonly, bool nonnegative, bool nonzero);
+RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP intonlySEXP, SEXP nonnegativeSEXP, SEXP nonzeroSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -15,53 +15,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
     Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
     Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
-    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useup, positive));
-    return rcpp_result_gen;
-END_RCPP
-}
-// SolveTenPuzzleInt
-CharacterVector SolveTenPuzzleInt(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
-RcppExport SEXP _tenpuzzle_SolveTenPuzzleInt(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
-    Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
-    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
-    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzleInt(x, tgt, findone, useup, positive));
-    return rcpp_result_gen;
-END_RCPP
-}
-// SolveCountdown
-CharacterVector SolveCountdown(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
-RcppExport SEXP _tenpuzzle_SolveCountdown(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
-    Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
-    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
-    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveCountdown(x, tgt, findone, useup, positive));
-    return rcpp_result_gen;
-END_RCPP
-}
-// SolveCountdownInt
-CharacterVector SolveCountdownInt(IntegerVector x, int tgt, bool findone, bool useup, bool positive);
-RcppExport SEXP _tenpuzzle_SolveCountdownInt(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP positiveSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
-    Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
-    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
-    Rcpp::traits::input_parameter< bool >::type positive(positiveSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveCountdownInt(x, tgt, findone, useup, positive));
+    Rcpp::traits::input_parameter< bool >::type intonly(intonlySEXP);
+    Rcpp::traits::input_parameter< bool >::type nonnegative(nonnegativeSEXP);
+    Rcpp::traits::input_parameter< bool >::type nonzero(nonzeroSEXP);
+    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -73,6 +30,28 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type expr(exprSEXP);
     rcpp_result_gen = Rcpp::wrap(CleanParen(expr));
+    return rcpp_result_gen;
+END_RCPP
+}
+// to_postfix
+CharacterVector to_postfix(CharacterVector x);
+RcppExport SEXP _tenpuzzle_to_postfix(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(to_postfix(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// EvaluateExpr
+List EvaluateExpr(CharacterVector x);
+RcppExport SEXP _tenpuzzle_EvaluateExpr(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(EvaluateExpr(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -123,11 +102,10 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 5},
-    {"_tenpuzzle_SolveTenPuzzleInt", (DL_FUNC) &_tenpuzzle_SolveTenPuzzleInt, 5},
-    {"_tenpuzzle_SolveCountdown", (DL_FUNC) &_tenpuzzle_SolveCountdown, 5},
-    {"_tenpuzzle_SolveCountdownInt", (DL_FUNC) &_tenpuzzle_SolveCountdownInt, 5},
+    {"_tenpuzzle_SolveTenPuzzle", (DL_FUNC) &_tenpuzzle_SolveTenPuzzle, 7},
     {"_tenpuzzle_CleanParen", (DL_FUNC) &_tenpuzzle_CleanParen, 1},
+    {"_tenpuzzle_to_postfix", (DL_FUNC) &_tenpuzzle_to_postfix, 1},
+    {"_tenpuzzle_EvaluateExpr", (DL_FUNC) &_tenpuzzle_EvaluateExpr, 1},
     {"_tenpuzzle_test_utils", (DL_FUNC) &_tenpuzzle_test_utils, 0},
     {"_tenpuzzle_test_rational", (DL_FUNC) &_tenpuzzle_test_rational, 0},
     {"_tenpuzzle_test_reduction", (DL_FUNC) &_tenpuzzle_test_reduction, 0},

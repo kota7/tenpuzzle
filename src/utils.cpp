@@ -39,10 +39,19 @@ string intToStr(int x) {
   return ret;
 }
 
+
 string toStr(const int &x) {
   return intToStr(x);
 }
 
 bool isPositive(const int &x) {
   return x > 0;
+}
+
+bool isNegative(const int &x) {
+  return x < 0;
+}
+
+bool isZero(const int &x) {
+  return x == 0;
 }

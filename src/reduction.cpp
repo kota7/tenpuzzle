@@ -18,20 +18,28 @@ const string ReductionIterator<T>::ops = "+-*/";
 template <class T>
 ReductionIterator<T>::ReductionIterator(const multiset<T> x) {
   nums = x;
+  nonnegativeOnly = false;
+  nonzeroOnly     = false;
+
   i = nums.begin();
   j = nums.begin();
   op = ops.begin();
-  positiveOnly = false;
+
   if (!isValid()) increment();
 }
 
 template <class T>
-ReductionIterator<T>::ReductionIterator(const multiset<T> x, const bool positive) {
+ReductionIterator<T>::ReductionIterator(const multiset<T> x,
+                                        const bool nonnegative,
+                                        const bool nonzero) {
   nums = x;
+  nonnegativeOnly = nonnegative;
+  nonzeroOnly     = nonzero;
+
   i = nums.begin();
   j = nums.begin();
   op = ops.begin();
-  positiveOnly = positive;
+
   if (!isValid()) increment();
 }
 
@@ -56,6 +64,7 @@ multiset<T> ReductionIterator<T>::next() {
   increment();
   return ret;
 }
+
 
 template <class T>
 bool ReductionIterator<T>::hasNext() {
@@ -91,8 +100,10 @@ bool ReductionIterator<int>::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
-  // positive requirement
-  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
+  // nonnegative requirement
+  if (nonnegativeOnly && *op == '-' && *i < *j)  return false;
+  // non-zero requirement
+  if (nonzeroOnly     && *op == '-' && *i == *j) return false;
 
   // if op is division, then
   //   j must not be zero and
@@ -109,8 +120,10 @@ bool ReductionIterator<Rational>::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
-  // positive requirement
-  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
+  // nonnegative requirement
+  if (nonnegativeOnly && *op == '-' && *i < *j)  return false;
+  // non-zero requirement
+  if (nonzeroOnly     && *op == '-' && *i == *j) return false;
 
   // if op is division, j must not be zero
   if ((*op == '/') && (j->den == 0)) return false;
@@ -123,8 +136,10 @@ bool ReductionIterator< NumberWithExpr<int> >::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
-  // positive requirement
-  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
+  // nonnegative requirement
+  if (nonnegativeOnly && *op == '-' && *i < *j)  return false;
+  // non-zero requirement
+  if (nonzeroOnly     && *op == '-' && *i == *j) return false;
 
   // if op is division, then
   //   j must not be zero and
@@ -141,8 +156,10 @@ bool ReductionIterator< NumberWithExpr<Rational> >::isValid() {
   // i must not be equal to j
   if (i == j) return false;
 
-  // positive requirement
-  if (positiveOnly && *op == '-' && !(*i > *j)) return false;
+  // nonnegative requirement
+  if (nonnegativeOnly && *op == '-' && *i < *j)  return false;
+  // non-zero requirement
+  if (nonzeroOnly     && *op == '-' && *i == *j) return false;
 
   // if op is division, j must not be zero
   if ((*op == '/') && (j->data.den == 0)) return false;

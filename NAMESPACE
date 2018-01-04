@@ -2,12 +2,17 @@
 
 export(clean_expr)
 export(countdown)
+export(eval_expr)
 export(tenpuzzle)
 export(tenpuzzle_app)
 export(tenpuzzle_app_srv)
 export(tenpuzzle_app_ui)
 export(tenpuzzle_bf)
+<<<<<<< HEAD
 import(shiny)
+=======
+export(to_postfix)
+>>>>>>> master
 importFrom(Rcpp,sourceCpp)
 importFrom(magrittr,"%>%")
 useDynLib(tenpuzzle)
