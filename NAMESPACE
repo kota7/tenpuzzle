@@ -8,11 +8,8 @@ export(tenpuzzle_app)
 export(tenpuzzle_app_srv)
 export(tenpuzzle_app_ui)
 export(tenpuzzle_bf)
-<<<<<<< HEAD
-import(shiny)
-=======
 export(to_postfix)
->>>>>>> master
+import(shiny)
 importFrom(Rcpp,sourceCpp)
 importFrom(magrittr,"%>%")
 useDynLib(tenpuzzle)
