@@ -26,14 +26,17 @@
 #' tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=TRUE)
 tenpuzzle <- function(x, tgt=10, findone=TRUE, useup=TRUE,
                       intonly=FALSE, nonnegative=FALSE, nonzero=FALSE) {
-  ret <- if (intonly) {
-    SolveTenPuzzleInt(x, tgt, findone, useup, nonnegative, nonzero) %>%
-      clean_expr() %>% unique()
-  } else {
-    SolveTenPuzzle(x, tgt, findone, useup, nonnegative, nonzero) %>%
-      clean_expr() %>% unique()
-  }
-  ret
+  if (length(x) == 0) stop("empty input")
+
+  ans <- SolveTenPuzzle(x, tgt, findone, useup,
+                        intonly, nonnegative, nonzero) %>%
+    clean_expr() %>% unique()
+  # solver returns the `best` possible answer, hence must not be empty
+  stopifnot(length(ans) > 0)
+  # check the value and if the result is close enough to the target,
+  # then return it; otherwise there is no answer
+  v <- EvaluateExpr(ans[1])$value
+  if (abs(v - tgt) < 1e-5) ans else character(0)
 }
 
 

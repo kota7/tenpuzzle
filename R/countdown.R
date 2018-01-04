@@ -25,14 +25,13 @@
 #' countdown(c(8, 4, 3, 8, 87, 12), 724)
 countdown <- function(x, tgt, findone=TRUE, useup=FALSE,
                       intonly=TRUE, nonnegative=TRUE, nonzero=TRUE) {
-  expr <- if (intonly) {
-    SolveCountdownInt(x, tgt, findone, useup, nonnegative, nonzero) %>%
-      clean_expr() %>% unique()
-  } else {
-    SolveCountdown(x, tgt, findone, useup, nonnegative, nonzero) %>%
-      clean_expr() %>% unique()
-  }
+  if (length(x) == 0) stop("empty input")
 
-  values <- sapply(expr, function(a) eval(parse(text=a))) %>% unname()
+  expr <- SolveTenPuzzle(x, tgt, findone, useup,
+                         intonly, nonnegative, nonzero) %>%
+    clean_expr() %>% unique()
+  stopifnot(length(expr) > 0)
+
+  values <- EvaluateExpr(expr)$value
   list(formula=expr, value=values)
 }

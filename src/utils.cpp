@@ -47,3 +47,11 @@ string toStr(const int &x) {
 bool isPositive(const int &x) {
   return x > 0;
 }
+
+bool isNegative(const int &x) {
+  return x < 0;
+}
+
+bool isZero(const int &x) {
+  return x == 0;
+}

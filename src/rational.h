@@ -66,6 +66,14 @@ struct Rational
     return x > Rational(0);
   }
 
+  friend bool isNegative(const Rational &x) {
+    return x < Rational(0);
+  }
+
+  friend bool isZero(const Rational &x) {
+    return x == Rational(0);
+  }
+
   friend double toDouble(const Rational &x) {
     double ret = (double)x.den / (double)x.num;
     if (x.neg) ret = -ret;

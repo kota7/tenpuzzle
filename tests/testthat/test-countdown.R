@@ -6,6 +6,17 @@ library(magrittr)
 test_that("countdown solvers are correct", {
   helper <- function(x, tgt) {
     inner <- function(x, tgt, findone, useup, intonly, nonnegative, nonzero) {
+      # ilegal input should cause error
+      if (nonnegative && any(x < 0)) {
+        expect_error(countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero))
+        return()
+      }
+      if (nonzero && any(x == 0)) {
+        expect_error(countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero))
+        return()
+      }
+
+
       a1 <- countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero)
       a2 <- tenpuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero)
 
