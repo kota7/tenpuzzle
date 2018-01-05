@@ -4,7 +4,7 @@
 \alias{tenpuzzle}
 \title{Ten puzzle solver}
 \usage{
-tenpuzzle(x, tgt = 10, findone = TRUE, useup = TRUE, intonly = FALSE,
+tenpuzzle(x, tgt = 10, findone = TRUE, useall = TRUE, intonly = FALSE,
   nonnegative = FALSE, nonzero = FALSE)
 }
 \arguments{
@@ -15,7 +15,7 @@ tenpuzzle(x, tgt = 10, findone = TRUE, useup = TRUE, intonly = FALSE,
 \item{findone}{if \code{TRUE}, search for an answer;
 otherwise search exhaustively}
 
-\item{useup}{if \code{TRUE}, requires all numbers are used;
+\item{useall}{if \code{TRUE}, requires all numbers are used;
 otherwise some number may remain unused}
 
 \item{intonly}{if \code{TRUE}, requires all numbers are integers in
@@ -36,7 +36,7 @@ Ten puzzle solver
 \examples{
 tenpuzzle(c(1, 1, 9, 9), 10)
 tenpuzzle(c(1, 1, 9, 9), 10, findone=FALSE)
-tenpuzzle(c(1, 1, 9, 9), 10, useup=FALSE)
+tenpuzzle(c(1, 1, 9, 9), 10, useall=FALSE)
 
 # integer only
 tenpuzzle(c(2, 6, 3), 9, findone=FALSE, intonly=FALSE)

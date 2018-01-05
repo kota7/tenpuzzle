@@ -4,7 +4,7 @@
 #' @param tgt an integer of target
 #' @param findone  if \code{TRUE}, search for an answer;
 #'                 otherwise search exhaustively
-#' @param useup    if \code{TRUE}, requires all numbers are used;
+#' @param useall   if \code{TRUE}, requires all numbers are used;
 #'                 otherwise some number may remain unused
 #' @param intonly  if \code{TRUE}, requires all numbers are integers in
 #'                 every step of calculation; otherwise fractions may appear
@@ -27,11 +27,11 @@
 #' countdown(c(75, 50, 2, 3, 8, 7), 812)
 #' countdown(c(10, 5, 1, 7, 12, 62), 130)
 #' countdown(c(8, 4, 3, 8, 87, 12), 724)
-countdown <- function(x, tgt, findone=TRUE, useup=FALSE,
+countdown <- function(x, tgt, findone=TRUE, useall=FALSE,
                       intonly=TRUE, nonnegative=TRUE, nonzero=TRUE) {
   if (length(x) == 0) stop("empty input")
 
-  expr <- SolveTenPuzzle(x, tgt, findone, useup,
+  expr <- SolveTenPuzzle(x, tgt, findone, useall,
                          intonly, nonnegative, nonzero) %>%
     clean_expr() %>% unique()
   stopifnot(length(expr) > 0)

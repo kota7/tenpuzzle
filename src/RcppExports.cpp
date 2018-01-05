@@ -6,19 +6,19 @@
 using namespace Rcpp;
 
 // SolveTenPuzzle
-CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useup, bool intonly, bool nonnegative, bool nonzero);
-RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useupSEXP, SEXP intonlySEXP, SEXP nonnegativeSEXP, SEXP nonzeroSEXP) {
+CharacterVector SolveTenPuzzle(IntegerVector x, int tgt, bool findone, bool useall, bool intonly, bool nonnegative, bool nonzero);
+RcppExport SEXP _tenpuzzle_SolveTenPuzzle(SEXP xSEXP, SEXP tgtSEXP, SEXP findoneSEXP, SEXP useallSEXP, SEXP intonlySEXP, SEXP nonnegativeSEXP, SEXP nonzeroSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< int >::type tgt(tgtSEXP);
     Rcpp::traits::input_parameter< bool >::type findone(findoneSEXP);
-    Rcpp::traits::input_parameter< bool >::type useup(useupSEXP);
+    Rcpp::traits::input_parameter< bool >::type useall(useallSEXP);
     Rcpp::traits::input_parameter< bool >::type intonly(intonlySEXP);
     Rcpp::traits::input_parameter< bool >::type nonnegative(nonnegativeSEXP);
     Rcpp::traits::input_parameter< bool >::type nonzero(nonzeroSEXP);
-    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero));
+    rcpp_result_gen = Rcpp::wrap(SolveTenPuzzle(x, tgt, findone, useall, intonly, nonnegative, nonzero));
     return rcpp_result_gen;
 END_RCPP
 }
