@@ -4,7 +4,7 @@
 \alias{countdown}
 \title{Solve Countdown's Number Quiz}
 \usage{
-countdown(x, tgt, findone = TRUE, useup = FALSE, intonly = TRUE,
+countdown(x, tgt, findone = TRUE, useall = FALSE, intonly = TRUE,
   nonnegative = TRUE, nonzero = TRUE)
 }
 \arguments{
@@ -15,7 +15,7 @@ countdown(x, tgt, findone = TRUE, useup = FALSE, intonly = TRUE,
 \item{findone}{if \code{TRUE}, search for an answer;
 otherwise search exhaustively}
 
-\item{useup}{if \code{TRUE}, requires all numbers are used;
+\item{useall}{if \code{TRUE}, requires all numbers are used;
 otherwise some number may remain unused}
 
 \item{intonly}{if \code{TRUE}, requires all numbers are integers in

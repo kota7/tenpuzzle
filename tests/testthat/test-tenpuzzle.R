@@ -6,30 +6,30 @@ library(magrittr)
 test_that("tenpuzzle solver is correct", {
   # test automation helpers
   helper <- function(x, tgt) {
-    inner <- function(x, tgt, findone, useup, intonly, nonnegative, nonzero) {
+    inner <- function(x, tgt, findone, useall, intonly, nonnegative, nonzero) {
 
-      # ilegal input should cause error
+      # illegal input should cause error
       if (nonnegative && any(x < 0)) {
-        expect_error(tenpuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero))
+        expect_error(tenpuzzle(x, tgt, findone, useall, intonly, nonnegative, nonzero))
         return()
       }
       if (nonzero && any(x == 0)) {
-        expect_error(tenpuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero))
+        expect_error(tenpuzzle(x, tgt, findone, useall, intonly, nonnegative, nonzero))
         return()
       }
 
-      answers <- tenpuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero)
+      answers <- tenpuzzle(x, tgt, findone, useall, intonly, nonnegative, nonzero)
       if (length(answers) > 0) {
         values  <- sapply(answers, function(a) eval(parse(text=a))) %>% unname()
         msg <- sprintf("IN: ([%s], %d, %d, %d, %d, %d, %d)",
                        paste0(x, collapse=','), tgt,
-                       findone, useup, intonly, nonnegative, nonzero)
+                       findone, useall, intonly, nonnegative, nonzero)
         expect_equal(values, rep(tgt, length(answers)), info=msg)
       }
       # test for options
       msg <- sprintf("IN: ([%s], %d, %d, %d, %d, %d, %d)",
                      paste0(x, collapse=','), tgt,
-                     findone, useup, intonly, nonnegative, nonzero)
+                     findone, useall, intonly, nonnegative, nonzero)
       res <- eval_expr(answers)
       if (intonly)     expect_true(all(res$intonly),     info=msg)
       if (nonnegative) expect_true(all(res$nonnegative), info=msg)
@@ -82,10 +82,10 @@ test_that("tenpuzzle solver is correct", {
 
 
 
-test_that("brute force produces same results as findone=FALSE, useup=TRUE", {
+test_that("brute force produces same results as findone=FALSE, useall=TRUE", {
 
   helper <- function(x, tgt) {
-    a1 <- tenpuzzle(x, tgt, findone=FALSE, useup=TRUE)
+    a1 <- tenpuzzle(x, tgt, findone=FALSE, useall=TRUE)
     a2 <- tenpuzzle_bf(x, tgt)
     # normalize the strings for comparison
     a1 <- sort(gsub(' ', '', a1))

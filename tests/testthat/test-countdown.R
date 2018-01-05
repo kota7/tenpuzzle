@@ -5,28 +5,28 @@ library(magrittr)
 
 test_that("countdown solver is correct", {
   helper <- function(x, tgt) {
-    inner <- function(x, tgt, findone, useup, intonly, nonnegative, nonzero) {
+    inner <- function(x, tgt, findone, useall, intonly, nonnegative, nonzero) {
 
-      # ilegal input should cause error
+      # illegal input should cause error
       if (nonnegative && any(x < 0)) {
-        expect_error(countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero))
+        expect_error(countdown(x, tgt, findone, useall, intonly, nonnegative, nonzero))
         return()
       }
       if (nonzero && any(x == 0)) {
-        expect_error(countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero))
+        expect_error(countdown(x, tgt, findone, useall, intonly, nonnegative, nonzero))
         return()
       }
 
 
-      a1 <- countdown(x, tgt, findone, useup, intonly, nonnegative, nonzero)
-      a2 <- tenpuzzle(x, tgt, findone, useup, intonly, nonnegative, nonzero)
+      a1 <- countdown(x, tgt, findone, useall, intonly, nonnegative, nonzero)
+      a2 <- tenpuzzle(x, tgt, findone, useall, intonly, nonnegative, nonzero)
 
       # if a2 is non-empty, then a1's value matches target exactly
       # if a2 is empty, then a1's values do not match the target exactly
       #                      and the deviation must be unique
       msg <- sprintf("IN: [%s], %f, %d, %d, %d, %d, %d | matched: %d",
                      paste0(x, collapse=','), tgt,
-                     findone, useup, intonly, nonnegative, nonzero, length(a2)>0)
+                     findone, useall, intonly, nonnegative, nonzero, length(a2)>0)
       if (length(a2) == 0) {
         expect_true(all(a1$value != tgt), info=msg)
         dev <- abs(a1$value - tgt)
@@ -38,7 +38,7 @@ test_that("countdown solver is correct", {
       # test for options
       msg <- sprintf("IN: ([%s], %d, %d, %d, %d, %d, %d)",
                      paste0(x, collapse=','), tgt,
-                     findone, useup, intonly, nonnegative, nonzero)
+                     findone, useall, intonly, nonnegative, nonzero)
       res <- eval_expr(a1$formula)
       if (intonly)     expect_true(all(res$intonly),     info=msg)
       if (nonnegative) expect_true(all(res$nonnegative), info=msg)
