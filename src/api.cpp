@@ -5,7 +5,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 CharacterVector SolveTenPuzzle(IntegerVector x, int tgt,
-                               bool findone, bool useup, bool intonly,
+                               bool findone, bool useall, bool intonly,
                                bool nonnegative, bool nonzero) {
   // input validation
   if (nonnegative) {
@@ -29,7 +29,7 @@ CharacterVector SolveTenPuzzle(IntegerVector x, int tgt,
       int tmp = x[i];
       y.insert(NumberWithExpr<int>(tmp));
     }
-    obj.solve(y, findone, useup, nonnegative, nonzero);
+    obj.solve(y, findone, useall, nonnegative, nonzero);
 
     for (set<string>::iterator i=obj.best.second.begin();
          i != obj.best.second.end(); ++i) {
@@ -42,7 +42,7 @@ CharacterVector SolveTenPuzzle(IntegerVector x, int tgt,
       Rational tmp = x[i];
       y.insert(NumberWithExpr<Rational>(tmp));
     }
-    obj.solve(y, findone, useup, nonnegative, nonzero);
+    obj.solve(y, findone, useall, nonnegative, nonzero);
 
     for (set<string>::iterator i=obj.best.second.begin();
          i != obj.best.second.end(); ++i) {

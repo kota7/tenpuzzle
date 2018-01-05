@@ -30,18 +30,18 @@ struct TenSolver {
 
   // returns true if some answer is found
   bool solve(const multiset< NumberWithExpr<T> > &x,
-             const bool &findone, const bool &useup,
+             const bool &findone, const bool &useall,
              const bool &nonnegative, const bool &nonzero);
 };
 
 
 template <class T>
 bool TenSolver<T>::solve(const multiset< NumberWithExpr<T> > &x,
-                         const bool &findone, const bool &useup,
+                         const bool &findone, const bool &useall,
                          const bool &nonnegative, const bool &nonzero) {
   bool ret = false;
 
-  if (!useup || x.size() == 1) {
+  if (!useall || x.size() == 1) {
     for (typename multiset< NumberWithExpr<T> >::iterator it=x.begin();
          it != x.end(); ++it) {
       // update the best so far
@@ -72,22 +72,12 @@ bool TenSolver<T>::solve(const multiset< NumberWithExpr<T> > &x,
     // skip if we already know y gets no answer
     if (noAns.find(y) != noAns.end()) continue;
 
+    bool found = solve(y, findone, useall, nonnegative, nonzero);
     // record if this node gets no answer;
     // this record is used for tree pruning;
     // to save memory, currently sets with two elements or smaller
     // are not recorded
-    bool found = solve(y, findone, useup, nonnegative, nonzero);
-    if (!found && y.size() > 2) {
-      /*
-      Rcout << "no ans: [";
-      for (typename multiset< NumberWithExpr<T> >::iterator i=y.begin();
-           i != y.end(); ++i) {
-        Rcout << *i << "; ";
-      }
-      Rcout << "]\n";
-      */
-      noAns.insert(y);
-    }
+    if (!found && y.size() > 2) noAns.insert(y);
 
     ret = ret || found;  // update the status of current set of numbers
 
