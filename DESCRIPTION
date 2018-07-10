@@ -5,8 +5,9 @@ Version: 0.1.0
 Authors@R: c(
     person("Kota", "Mori", email = "kmori05@gmail.com", role = c("aut", "cre"))
     )
-Description: Solves ten puzzle quiz, 
-    possibly with arbitrary number of inputs and target number.
+Description: Solve ten puzzle quiz, 
+    a game that makes 10 from given numbers by arithmetic calculation.
+    Target numbers other than 10 are also supported.
 License: MIT + file LICENSE
 Imports:
     combinat,
