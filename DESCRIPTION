@@ -14,6 +14,7 @@ Imports:
     dplyr,
     magrittr,
     shiny,
+    stats,
     stringr,
     Rcpp
 Encoding: UTF-8
