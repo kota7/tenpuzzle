@@ -48,6 +48,8 @@ Launch locally by:
 tenpuzzle_app()
 ```
 
+Or visit [shinyapps.io](https://kota.shinyapps.io/tenpuzzle/).
+
 Note on the Complexity
 ----------------------
 

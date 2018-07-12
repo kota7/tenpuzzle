@@ -47,7 +47,6 @@ The return value is a pair of formulas and values that makes the closest number 
 countdown(c(75, 50, 2, 3, 8, 7), 812)
 ```
 
-
 ## Shiny app
 
 Launch locally by:
@@ -56,6 +55,7 @@ Launch locally by:
 tenpuzzle_app()
 ```
 
+Or visit [shinyapps.io](https://kota.shinyapps.io/tenpuzzle/).
  
 ## Note on the Complexity
 
