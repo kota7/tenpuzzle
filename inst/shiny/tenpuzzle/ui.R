@@ -9,7 +9,21 @@ shinyUI(fluidPage(
   ,titlePanel("10 PUZZLE")
   ,sidebarLayout(
     sidebarPanel(
-      p("Make 10 using the four given numbers with arithmetic calculation!")
+      shiny::p(
+        "Make 10 using the four given numbers with arithmetic calculation!")
+      ,shiny::hr()
+      ,shiny::p(
+        "Created using"
+        ,shiny::a(
+          'tenpuzzle', target='_blank',
+          href='https://github.com/kota7/tenpuzzle'))
+      ,textOutput('versionLabel')
+      # ,shiny::p(
+      #   'Copyright \ua9 2018 by '
+      #   ,shiny::a('Kota Mori.', href='https://github.com/kota7/',
+      #            target='_blank')
+      #   ,shiny::br()
+      #   ,'All rights reserved.')
     )
 
     ,mainPanel(

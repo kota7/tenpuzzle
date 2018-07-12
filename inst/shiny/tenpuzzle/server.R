@@ -61,5 +61,13 @@ shinyServer(function(input, output, session) {
 
   # result box message
   output$result <- renderText(RV$resultMsg)
+
+
+  # show package version
+  output$versionLabel <- renderText({
+    # version equals the package version
+    # this is useful to check the deployment
+    paste('Version', packageVersion('tenpuzzle'))
+  })
 })
 
