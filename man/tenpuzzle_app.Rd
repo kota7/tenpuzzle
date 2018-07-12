@@ -2,15 +2,9 @@
 % Please edit documentation in R/shinyapp.R
 \name{tenpuzzle_app}
 \alias{tenpuzzle_app}
-\alias{tenpuzzle_app_ui}
-\alias{tenpuzzle_app_srv}
 \title{Ten Puzzle Game on Shiny}
 \usage{
 tenpuzzle_app(...)
-
-tenpuzzle_app_ui(id)
-
-tenpuzzle_app_srv(input, output, session)
 }
 \arguments{
 \item{...}{Arguments passed to \code{\link[shiny]{runApp}}}
@@ -19,5 +13,7 @@ tenpuzzle_app_srv(input, output, session)
 Ten Puzzle Game on Shiny
 }
 \examples{
+\dontrun{
 tenpuzzle_app()
+}
 }
