@@ -42,7 +42,7 @@ shinyServer(function(input, output, session) {
   observeEvent(input$answerBtn, {
     expr <- input$answer
     x <- RV$currentQuiz
-    res <- check_tenpuzzle(expr, x, tgt=10)[[1]]
+    res <- validate_tenpuzzle(expr, x, tgt=10)[[1]]
     if (res) {
       RV$resultMsg <- sprintf("Yes, %s = 10!", expr)
     } else {

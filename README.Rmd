@@ -49,4 +49,4 @@ countdown(c(75, 50, 2, 3, 8, 7), 812)
 ## Note on the Complexity
 
 The solver algorithm is not very efficient.  
-It may not finish in reasonable time for input of length six or longer.
+It may not finish in reasonable time for input of length seven or longer.

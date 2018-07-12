@@ -16,22 +16,22 @@
 #' @export
 #'
 #' @examples
-#' check_tenpuzzle("1+2+3+4", x=c(1,2,3,4))
-#' check_tenpuzzle(c("2*4+3-1", "3*4+1-2"), x=c(1,2,3,4))
-#' check_tenpuzzle(c("3*4-2", '(3-1)*2+4+2'), x=c(1,2,3,4))
-#' check_tenpuzzle(c("4/2*3", '3/2*4'), x=c(2,3,4), tgt=6, intonly=TRUE)
-check_tenpuzzle <- function(expr, x, tgt = 10,
+#' validate_tenpuzzle("1+2+3+4", x=c(1,2,3,4))
+#' validate_tenpuzzle(c("2*4+3-1", "3*4+1-2"), x=c(1,2,3,4))
+#' validate_tenpuzzle(c("3*4-2", '(3-1)*2+4+2'), x=c(1,2,3,4))
+#' validate_tenpuzzle(c("4/2*3", '3/2*4'), x=c(2,3,4), tgt=6, intonly=TRUE)
+validate_tenpuzzle <- function(expr, x, tgt = 10,
                             useall = TRUE, intonly = FALSE,
                             nonnegative = FALSE, nonzero = FALSE) {
-  lapply(expr, check_tenpuzzle_single, x=x, tgt=tgt,
+  lapply(expr, validate_tenpuzzle_single, x=x, tgt=tgt,
          useall=useall, intonly=intonly,
          nonnegative=nonnegative, nonzero=nonzero)
 }
 
 
-#' @rdname check_tenpuzzle
+#' @rdname validate_tenpuzzle
 #' @export
-check_tenpuzzle_single <- function(expr, x, tgt = 10,
+validate_tenpuzzle_single <- function(expr, x, tgt = 10,
                                    useall = TRUE, intonly = FALSE,
                                    nonnegative = FALSE, nonzero = FALSE) {
 
