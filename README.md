@@ -4,6 +4,7 @@ tenpuzzle
 =========
 
 [![Travis-CI Build Status](https://travis-ci.org/kota7/tenpuzzle.svg?branch=master)](https://travis-ci.org/kota7/tenpuzzle) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/kota7/tenpuzzle?branch=master&svg=true)](https://ci.appveyor.com/project/kota7/tenpuzzle)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kota7/tenpuzzle)
 
 `tenpuzzle` provides a solver for ten puzzle quiz, a game that makes 10 from given numbers by arithmetic calculation. Target numbers other than 10 are supported.
 
